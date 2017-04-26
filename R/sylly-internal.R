@@ -18,6 +18,39 @@
 #' @importFrom stats setNames
 #' @importFrom utils data file_test head modifyList setTxtProgressBar tail txtProgressBar
 
+## function koRpus2sylly()
+# transitional internal function to transform hyphen pattern data, that was
+# saved using koRpus, into sylly data. the problem with the old files is that
+# the S4 objects were saved with an attribute refering to the koRpus package,
+# making it impossible to use sylly *without* also loading koRpus automatically
+# - path: full path to an old *.rda file
+koRpus2sylly <- function(path, replaceFile=TRUE){
+  intEnv <- new.env()
+  path <- normalizePath(path, mustWork=TRUE)
+  load(path, envir=intEnv)
+  hyphPatName <- ls(envir=intEnv)
+  hyphPat <- intEnv[[hyphPatName]]
+  currentPackage <- attr(class(hyphPat), "package")
+  if(identical(currentPackage, "koRpus")){
+    message(paste0("converting ", hyphPatName, " from koRpus to sylly"))
+    attr(class(hyphPat), "package") <- "sylly"
+    intEnv[[hyphPatName]] <- hyphPat
+    if(isTRUE(replaceFile)){
+      save(
+        list=hyphPatName,
+        envir=intEnv,
+        file=path,
+        compress="xz",
+        compression_level=-9
+      )
+    }
+  } else {
+    message(paste0(hyphPatName, " is not a koRpus object (package: ", currentPackage, ")"))
+  }
+  return(invisible(NULL))
+} ## end function koRpus2sylly()
+
+
 ## function explode.letters()
 # all possible values of .word.:
 # 6 x 1: . w o r d .

@@ -18,6 +18,12 @@
 #' S4 Class kRp.hyph.pat
 #'
 #' This class is used for objects that are returned by \code{\link[sylly:read.hyph.pat]{read.hyph.pat}}.
+#' 
+#' Since this package has been a part of the \code{koRpus} package before, you might run into old pattern
+#' files. You will know that this is the case if using them automatically tries to load the \code{koRpus} package.
+#' In these cases, you might want to strip the defunct reference to \code{koRpus} by calling the private
+#' function \code{sylly:::koRpus2sylly} which take the path to the old file as its first argument. Be aware that
+#' calling this function will overwrite the old file in-place, so you should make a backup first!
 #'
 #' @slot lang A character string, naming the language that is assumed for the patterns in this object
 #' @slot pattern A matrix with three colums:
