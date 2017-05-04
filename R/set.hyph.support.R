@@ -32,19 +32,19 @@
 #' you must provide also). 
 #' 
 #' You provide the meta data as a named list. It usually has one single entry to tell the new language
-#' abbreviation, e.g., \code{set.lang.support(list("xyz"="xyz"))}. However, this will only work if a)
+#' abbreviation, e.g., \code{set.hyph.support(list("xyz"="xyz"))}. However, this will only work if a)
 #' the language support script is a part of the \code{sylly} package itself, and b) the hyphen pattern
 #' is located in its \code{data} subdirectory.
 #' 
 #' For your custom hyphenation patterns to be found automatically, provide it as the value in the named
-#' list, e.g., \code{set.lang.support(list("xyz"=hyph.xyz))}.
+#' list, e.g., \code{set.hyph.support(list("xyz"=hyph.xyz))}.
 #' This will directly add the patterns to \code{sylly}'s environment, so it will be found when
 #' hyphenation is requested for language \code{"xyz"}.
 #' 
 #' If you would like to provide hyphenation as part of a third party language package, you must name the
 #' object \code{hyph.<lang>}, save it to your package's \code{data} subdirectory named
 #' \code{hyph.<lang>.rda}, and append \code{package="<yourpackage>"} to the named list; e.g.,
-#' \code{set.lang.support(list("xyz"=c("xyz", package="koRpus.lang.xyz"))}. Only then
+#' \code{set.hyph.support(list("xyz"=c("xyz", package="koRpus.lang.xyz"))}. Only then
 #' \code{sylly} will look for the pattern object in your package, not its own \code{data} directory.
 #' 
 #' @section Hyphenation patterns:
@@ -58,12 +58,12 @@
 #' @param value A named list that upholds exactly the structure defined above.
 #' @examples
 #' \dontrun{
-#' set.lang.support(
+#' set.hyph.support(
 #'   list("xyz"="xyz")
 #' )
 #' }
 #' @export
-set.lang.support <- function(value){
+set.hyph.support <- function(value){
 
   all.kRp.env <- as.list(as.environment(.sylly.env))
 

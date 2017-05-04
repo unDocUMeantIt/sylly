@@ -19,9 +19,9 @@
 # this is an internal file providing language support.
 # please refer to inst/README.languages for details
 
-#' @include set.lang.support.R
+#' @include set.hyph.support.R
 
-set.lang.support(
+set.hyph.support(
   list(
     "ru"="ru"
   )

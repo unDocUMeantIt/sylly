@@ -34,7 +34,7 @@ Authors@R: c(person(given="m.eik", family="michalke",
         comment="support for Italian"), person(given="Alexandre",
         family="Brulet", role=c("ctb"), comment="support for French"))
 Version: 0.1-1
-Date: 2017-04-26
+Date: 2017-05-04
 Collate: 
     '00_environment.R'
     '01_class_01_kRp.hyph.pat.R'
@@ -46,7 +46,7 @@ Collate:
     '02_method_summary.kRp.hyphen.R'
     'get.sylly.env.R'
     'hyph.XX-data.R'
-    'set.lang.support.R'
+    'set.hyph.support.R'
     'lang.support-de.R'
     'lang.support-en.R'
     'lang.support-es.R'
@@ -57,5 +57,6 @@ Collate:
     'read.hyph.pat.R'
     'set.sylly.env.R'
     'sylly-internal.R'
+    'sylly-internal_langpack_generator.R'
     'sylly-package.R'
 RoxygenNote: 6.0.1
