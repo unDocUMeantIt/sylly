@@ -1,9 +1,7 @@
 Package: sylly
 Type: Package
 Title: Hyphenation and Syllable Counting for Text Analysis
-Author: m.eik michalke [aut, cre], Earl Brown [ctb] (support for
-        Spanish), Alberto Mirisola [ctb] (support for Italian),
-        Alexandre Brulet [ctb] (support for French)
+Author: m.eik michalke [aut, cre]
 Maintainer: m.eik michalke <meik.michalke@hhu.de>
 Depends: R (>= 2.10.0),methods
 Suggests: testthat
@@ -14,12 +12,13 @@ Description: This is a native R implementation of the hyphenation
         objects. It was originally developed for and part of the
         'koRpus' package, but later released as a separate package so
         it's lighter to have this particular functionality available
-        for other packages. Support for additional languages can be
-        added on-the-fly or by plugin packages. Due to some
-        restrictions on CRAN, the full package sources are only
-        available from the project homepage. To ask for help, report
-        bugs, request features, or discuss the development of the
-        package, please subscribe to the koRpus-dev mailing list
+        for other packages. Support for various languages needs be
+        added on-the-fly or by plugin packages, this package does not
+        include any language specific data. Due to some restrictions on
+        CRAN, the full package sources are only available from the
+        project homepage. To ask for help, report bugs, request
+        features, or discuss the development of the package, please
+        subscribe to the koRpus-dev mailing list
         (<http://korpusml.reaktanz.de>).
 License: GPL (>= 3)
 Encoding: UTF-8
@@ -27,14 +26,9 @@ LazyLoad: yes
 URL: https://reaktanz.de/?c=hacking&s=koRpus
 BugReports: https://github.com/unDocUMeantIt/sylly/issues
 Authors@R: c(person(given="m.eik", family="michalke",
-        email="meik.michalke@hhu.de", role=c("aut", "cre")),
-        person(given="Earl", family="Brown", email="ekbrown@ksu.edu",
-        role=c("ctb"), comment="support for Spanish"),
-        person(given="Alberto", family="Mirisola", role=c("ctb"),
-        comment="support for Italian"), person(given="Alexandre",
-        family="Brulet", role=c("ctb"), comment="support for French"))
+        email="meik.michalke@hhu.de", role=c("aut", "cre")))
 Version: 0.1-1
-Date: 2017-05-04
+Date: 2017-05-05
 Collate: 
     '00_environment.R'
     '01_class_01_kRp.hyph.pat.R'
@@ -45,16 +39,9 @@ Collate:
     '02_method_show.kRp.hyphen.R'
     '02_method_summary.kRp.hyphen.R'
     'get.sylly.env.R'
-    'hyph.XX-data.R'
-    'set.hyph.support.R'
-    'lang.support-de.R'
-    'lang.support-en.R'
-    'lang.support-es.R'
-    'lang.support-fr.R'
-    'lang.support-it.R'
-    'lang.support-ru.R'
     'manage.hyph.pat.R'
     'read.hyph.pat.R'
+    'set.hyph.support.R'
     'set.sylly.env.R'
     'sylly-internal.R'
     'sylly-internal_langpack_generator.R'

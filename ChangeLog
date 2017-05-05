@@ -1,12 +1,15 @@
 ChangeLog for package sylly
 
-changes in version 0.1-1 (2017-04-25)
+changes in version 0.1-1 (2017-05-05)
 unreleased:
   - this version is under development
   - initial release
 added:
-  - sylly_langpack(): a private method to generate packages with
-    additional language support. it shouldn't be needed by regular
-    users and is therefore not exported
-  - koRpus2sylly(): a private function to convert old koRpus
-    object files into sylly equivalents
+  - sylly_langpack(): a private method to generate packages with additional
+    language support. it shouldn't be needed by regular users and is therefore
+    not exported
+  - koRpus2sylly(): a private function to convert old koRpus object files
+    into sylly equivalents
+removed:
+  - all hyphenation patterns are now in their own package called syll.<lang>
+
