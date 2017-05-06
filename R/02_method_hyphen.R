@@ -21,31 +21,23 @@
 #' These methods implement word hyphenation, based on Liang's algorithm.
 #'
 #' For this to work the function must be told which pattern set it should use to
-#' find the right hyphenation spots. If \code{words} is an object that was tokenized and tagged with
-#' the \code{koRpus} package, its language definition might be used. Otherwise, in addition to the
-#' words to be processed you must specify \code{hyph.pattern}. You have two options: If you
-#' want to use one of the built-in language patterns, just set it to the according
-#' language abbrevation. As of this version valid choices are:
-#' \itemize{
-#'  \item {\code{"de"}} {--- German (new spelling, since 1996)}
-#'  \item {\code{"de.old"}} {--- German (old spelling, 1901--1996)}
-#'  \item {\code{"en"}} {--- English (UK)}
-#'  \item {\code{"en.us"}} {--- English (US)}
-#'  \item {\code{"es"}} {--- Spanish}
-#'  \item {\code{"fr"}} {--- French}
-#'  \item {\code{"it"}} {--- Italian}
-#'  \item {\code{"ru"}} {--- Russian}
-#' }
+#' find the right hyphenation spots. The most straight forward way to add suuport
+#' for a particular language during a session is to load  the appropriate language
+#' package (e.g., the package \code{sylly.en} for English or \code{sylly.de} for German).
+#'
+#' After such a package was loaded, you can simply use the language abbreviation as
+#' the value for the \code{hyph.pattern} argument (like \code{"en"} for the English
+#' pattern set). If \code{words} is an object that was tokenized and tagged with
+#' the \code{koRpus} package, its language definition can be used instead, i.e. you
+#' don't need to specify \code{hyph.pattern}, \code{hyphen} will pick the language
+#' automatically.
+#'
 #' In case you'd rather use your own pattern set, \code{hyph.pattern} can be an
 #' object of class \code{kRp.hyph.pat}, alternatively.
 #'
-#' The built-in hyphenation patterns were derived from the patterns available on CTAN[1]
-#' under the terms of the LaTeX Project Public License[2], see \code{\link[sylly:hyph.XX]{hyph.XX}}
-#' for detailed information.
-#'
-#' @param words A character vector with words/tokens to be hyphenated.
+#' @param words Either a character vector with words/tokens to be hyphenated, or any tagged text object generated with the \code{koRpus} package.
 #' @param hyph.pattern Either an object of class \code{\link[sylly]{kRp.hyph.pat-class}}, or
-#'    a valid character string naming the language of the patterns to be used. See details.
+#'    a valid character string naming the language of the patterns to be used (must already be loaded, see details).
 #' @param min.length Integer, number of letters a word must have for considering a hyphenation. \code{hyphen} will
 #'    not split words after the first or before the last letter, so values smaller than 4 are not useful.
 #' @param rm.hyph Logical, whether appearing hyphens in words should be removed before pattern matching.
@@ -63,10 +55,6 @@
 #' @references
 #'  Liang, F.M. (1983). \emph{Word Hy-phen-a-tion by Com-put-er}.
 #'      Dissertation, Stanford University, Dept. of Computer Science.
-#'
-#' [1] \url{http://tug.ctan.org/tex-archive/language/hyph-utf8/tex/generic/hyph-utf8/patterns/}
-#'
-#' [2] \url{http://www.ctan.org/tex-archive/macros/latex/base/lppl.txt}
 #' @export
 #' @import methods
 #' @rdname hyphen-methods

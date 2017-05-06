@@ -68,14 +68,32 @@ copyright_notice <- function(
 ## function doc_hyph_support()
 # generate hyph.support-<lang>.R file
 doc_hyph_support <- function(
-  lang,      # e.g., "nl"
-  lang_name, # e.g., "Dutch"
+  lang,           # e.g., "nl"
+  lang_name,      # e.g., "Dutch"
+  desc=lang_name, # optional Description for the docs
+  alt_lang=NULL,  # optional list of character vectors with elements 'lang', 'lang_name' and
+                  # 'desc' for additional patterns in this package
   author="Meik Michalke",
   email="meik.michalke@hhu.de",
   year=format(Sys.Date(), "%Y"),
   dir=NULL,   # if not NULL, writes results directly to dir/hyph.<lang>-data.R
   overwrite=FALSE
 ){
+  # check for alternative patterns
+  alt_docs <- value_def <- ""
+  if(!is.null(alt_lang)){
+    stopifnot(is.list(alt_lang))
+    for(this_alt_lang in alt_lang){
+      # very basic check that this is a correctly constructed entry
+      stopifnot(all(isTRUE(length(this_alt_lang) == 3), names(this_alt_lang) %in% c("lang", "lang_name", "desc")))
+      alt_docs <- paste0(alt_docs,
+        "#'   \\item {\\code{\"", this_alt_lang$lang, "\"}} {--- ", this_alt_lang$desc, "}\n",
+      )
+      value_def <- paste0(value_def,
+        "      \"", this_alt_lang$lang, "\"=c(\"", this_alt_lang$lang, "\", package=\"sylly.", lang, "\")\n",
+      )
+    }
+  }
   doc <- paste0(
     copyright_notice(lang=lang, author=author, email=email, year=year),
     "#' Language support for ", lang_name, "\n",
@@ -88,6 +106,7 @@ doc_hyph_support <- function(
     "#' To use the patterns with \\code{\\link[sylly:hyphen]{hyphen}}, simply use the abbreviation:\n",
     "#' \\itemize{\n",
     "#'   \\item {\\code{\"", lang, "\"}} {--- ", lang_name, " hyphenation patterns}\n",
+    alt_docs,
     "#' }\n",
     "#'\n",
     "#' @seealso\n",
@@ -100,6 +119,7 @@ doc_hyph_support <- function(
     "  sylly::set.hyph.support(\n",
     "    value=list(\n",
     "      \"", lang, "\"=c(\"", lang, "\", package=\"sylly.", lang, "\")\n",
+    value_def,
     "    )\n",
     "  )\n",
     "}\n\n",
