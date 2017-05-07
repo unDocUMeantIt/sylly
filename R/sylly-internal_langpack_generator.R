@@ -36,6 +36,17 @@ write_doc_file <- function(
 ## end function write_doc_file()
 
 
+## function check_alt_lang()
+check_alt_lang <- function(alt_lang){
+    stopifnot(is.list(alt_lang))
+    for(this_alt_lang in alt_lang){
+      # very basic check that this is a correctly constructed entry
+      stopifnot(all(isTRUE(length(this_alt_lang) == 3), names(this_alt_lang) %in% c("lang", "lang_name", "desc")))
+    }
+    return(TRUE)
+} ## end function check_alt_lang()
+
+
 ## function copyright_notice()
 copyright_notice <- function(
   lang,      # e.g., "nl"
@@ -70,7 +81,7 @@ copyright_notice <- function(
 doc_hyph_support <- function(
   lang,           # e.g., "nl"
   lang_name,      # e.g., "Dutch"
-  desc=lang_name, # optional Description for the docs
+  desc=paste0(lang_name, " hyphenation patterns"), # description for the docs
   alt_lang=NULL,  # optional list of character vectors with elements 'lang', 'lang_name' and
                   # 'desc' for additional patterns in this package
   author="Meik Michalke",
@@ -82,15 +93,13 @@ doc_hyph_support <- function(
   # check for alternative patterns
   alt_docs <- value_def <- ""
   if(!is.null(alt_lang)){
-    stopifnot(is.list(alt_lang))
+    check_alt_lang(alt_lang)
     for(this_alt_lang in alt_lang){
-      # very basic check that this is a correctly constructed entry
-      stopifnot(all(isTRUE(length(this_alt_lang) == 3), names(this_alt_lang) %in% c("lang", "lang_name", "desc")))
       alt_docs <- paste0(alt_docs,
-        "#'   \\item {\\code{\"", this_alt_lang$lang, "\"}} {--- ", this_alt_lang$desc, "}\n",
+        "#'   \\item {\\code{\"", this_alt_lang["lang"], "\"}} {--- ", this_alt_lang["desc"], "}\n"
       )
       value_def <- paste0(value_def,
-        "      \"", this_alt_lang$lang, "\"=c(\"", this_alt_lang$lang, "\", package=\"sylly.", lang, "\")\n",
+        "      \"", this_alt_lang["lang"], "\"=c(\"", this_alt_lang["lang"], "\", package=\"sylly.", lang, "\")\n"
       )
     }
   }
@@ -105,7 +114,7 @@ doc_hyph_support <- function(
     "#' In particular, a new set of hyphenation patterns is being added (see \\code{\\link{hyph.", lang, "}}).\n",
     "#' To use the patterns with \\code{\\link[sylly:hyphen]{hyphen}}, simply use the abbreviation:\n",
     "#' \\itemize{\n",
-    "#'   \\item {\\code{\"", lang, "\"}} {--- ", lang_name, " hyphenation patterns}\n",
+    "#'   \\item {\\code{\"", lang, "\"}} {--- ", desc, "}\n",
     alt_docs,
     "#' }\n",
     "#'\n",
@@ -147,14 +156,23 @@ doc_hyph_support <- function(
 ## function doc_data()
 # generate hyph.<lang>-data.R file
 doc_data <- function(
-  lang,      # e.g., "nl"
-  lang_name, # e.g., "Dutch"
+  lang,           # e.g., "nl"
+  lang_name,      # e.g., "Dutch"
+  alt_lang=NULL,  # optional list of character vectors with elements 'lang', 'lang_name' and
+                  # 'desc' for additional patterns in this package
   author="Meik Michalke",
   email="meik.michalke@hhu.de",
   year=format(Sys.Date(), "%Y"),
-  dir=NULL,   # if not NULL, writes results directly to dir/hyph.<lang>-data.R
+  dir=NULL,       # if not NULL, writes results directly to dir/hyph.<lang>-data.R
   overwrite=FALSE
 ){
+  aliases <- paste0("hyph.", lang)
+  if(!is.null(alt_lang)){
+    check_alt_lang(alt_lang)
+    for(this_alt_lang in alt_lang){
+      aliases <- paste0(aliases, ", hyph.", this_alt_lang["lang"])
+    }
+  }
   doc <- paste0(
     copyright_notice(lang=lang, author=author, email=email, year=year),
     "#' Hyphenation patterns for ", lang_name, "\n",
@@ -178,7 +196,7 @@ doc_data <- function(
     "#'\n",
     "#' In case any changes to the patterns were necessary to be used in this package, they are\n",
     "#' documented in the ChangeLog for the sources package. The unchanged original patterns can be found under [1].\n\n",
-    "#' @aliases hyph.", lang, "\n",
+    "#' @aliases ", aliases, "\n",
     "#' @docType data\n",
     "#' @keywords datasets\n",
     "#' @name hyph.", lang, "\n",
@@ -319,6 +337,9 @@ doc_changelog <- function(
 sylly_langpack_skeleton <- function(
   lang,      # e.g., "nl"
   lang_name, # e.g., "Dutch"
+  desc=paste0(lang_name, " hyphenation patterns"), # description for the docs
+  alt_lang=NULL,  # optional list of character vectors with elements 'lang', 'lang_name' and
+                  # 'desc' for additional patterns in this package
   author="Meik Michalke",
   email="meik.michalke@hhu.de",
   year=format(Sys.Date(), "%Y"),
@@ -347,6 +368,8 @@ sylly_langpack_skeleton <- function(
   doc_hyph_support(
     lang=lang,
     lang_name=lang_name,
+    desc=desc,
+    alt_lang=alt_lang,
     author=author,
     email=email,
     year=year,
@@ -356,6 +379,7 @@ sylly_langpack_skeleton <- function(
   doc_data(
     lang=lang,
     lang_name=lang_name,
+    alt_lang=alt_lang,
     author=author,
     email=email,
     year=year,
@@ -383,6 +407,24 @@ sylly_langpack_skeleton <- function(
 } ## end function sylly_langpack_skeleton()
 
 
+## function write_hyph_rda()
+write_hyph_rda <- function(hyph_pattern, dir, lang, pkg_lang=lang){
+  # let's make sure the object is named accordingly
+  hyph_name <- paste0("hyph.", lang)
+  intEnv <- new.env()
+  intEnv[[hyph_name]] <- hyph_pattern
+  hyph_file <- file.path(dir, paste0("sylly.", pkg_lang), "data", paste0(hyph_name, ".rda"))
+  message(paste0("writing file: ", hyph_file, " ..."))
+  save(
+    list=hyph_name,
+    file=hyph_file,
+    envir=intEnv,
+    compress="xz",
+    compression_level=-9
+  )
+} ## end function write_hyph_rda()
+
+
 ## method sylly_langpack()
 setGeneric("sylly_langpack", function(hyph.pattern, ...) standardGeneric("sylly_langpack"))
 # further down the line, this method also takes the hyphen pattern object
@@ -390,9 +432,15 @@ setGeneric("sylly_langpack", function(hyph.pattern, ...) standardGeneric("sylly_
 setMethod("sylly_langpack", signature(hyph.pattern="kRp.hyph.pat"),
   function(
     hyph.pattern, 
-    lang,      # e.g., "nl"
-    lang_name, # e.g., "Dutch"
+    lang,           # e.g., "nl"
+    lang_name,      # e.g., "Dutch"
     dir,
+    desc=paste0(lang_name, " hyphenation patterns"), # description for the docs
+    alt_lang=NULL,  # optional list of character vectors with elements 'lang', 'lang_name' and
+                    # 'desc' for additional patterns in this package
+    alt_hyph_pattern=NULL,  # optional named list of objects of class kRp.hyph.pat to also include in the package
+                            # name of each element must be the language abbreviation for this partidular pattern,
+                            # e.g. list(de.old=hyph.de.old)
     author="Meik Michalke",
     email="meik.michalke@hhu.de",
     year=format(Sys.Date(), "%Y"),
@@ -404,11 +452,13 @@ setMethod("sylly_langpack", signature(hyph.pattern="kRp.hyph.pat"),
   ){
     # just make sure we can write something to a proper place
     stopifnot(dir.exists(dir))
-    
+
     # first generate the directory structure and additional files
     sylly_langpack_skeleton(
       lang=lang,
       lang_name=lang_name,
+      desc=desc,
+      alt_lang=alt_lang,
       author=author,
       email=email,
       year=year,
@@ -421,19 +471,27 @@ setMethod("sylly_langpack", signature(hyph.pattern="kRp.hyph.pat"),
     )
     
     # finally save the pattern object
-    # let's make sure the object is named accordingly
-    hyph_name <- paste0("hyph.", lang)
-    intEnv <- new.env()
-    intEnv[[hyph_name]] <- hyph.pattern
-    hyph_file <- file.path(dir, paste0("sylly.", lang), "data", paste0(hyph_name, ".rda"))
-    message(paste0("writing file: ", hyph_file, " ..."))
-    save(
-      list=hyph_name,
-      file=hyph_file,
-      envir=intEnv,
-      compress="xz",
-      compression_level=-9
+    write_hyph_rda(
+      hyph_pattern=hyph.pattern,
+      dir=dir,
+      lang=lang
     )
+    if(!is.null(alt_hyph_pattern)){
+      stopifnot(is.list(alt_hyph_pattern))
+      stopifnot(all(sapply(alt_hyph_pattern, function(this_pat){inherits(this_pat, "kRp.hyph.pat")})))
+      alt_hyph_pat_lang <- names(alt_hyph_pattern)
+      stopifnot(isTRUE(length(alt_hyph_pat_lang) == length(alt_hyph_pattern)))
+      sapply(seq_along(alt_hyph_pattern),
+        function(this_pat_num){
+          write_hyph_rda(
+            hyph_pattern=alt_hyph_pattern[[this_pat_num]],
+            dir=dir,
+            lang=alt_hyph_pat_lang[[this_pat_num]],
+            pkg_lang=lang
+          )
+        }
+      )
+    } else {}
 
     message("you can now roxygenize the package!")
     
