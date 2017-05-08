@@ -1,0 +1,101 @@
+\documentclass[a4paper,10pt]{scrartcl}
+\usepackage[utf8x]{inputenc}
+\usepackage[apaciteclassic]{apacite}
+
+%opening
+\title{Using the sylly Package for Hyphenation and Syllable Count}
+%\VignetteIndexEntry{Using the sylly Package for Hyphenation and Syllable Count}
+\author{m.eik michalke}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+\end{abstract}
+
+\section{Hyphenation}
+
+The method \texttt{hyphen()} takes vectors of character strings (i.e., single words) and applies an hyphenation algorithm \cite{liang_word_1983} to each word. This algorithm was originally developed for automatic word hyphenation in \LaTeX{}, and is gracefully misused here to fulfill a slightly different service.\footnote{The \texttt{hyphen()} method was originally implemented as part of the \texttt{koRpus} package, but was later split off into its own package, which is \texttt{sylly}. \texttt{koRpus} adds further \texttt{hyphen()} methods so they can be used on tokenized and POS tagged objects directly.}
+
+\texttt{hyphen()} needs a set of hyphenation patterns for each language it should analyze. If you're lucky, there's already a pre-built package for your language of interest that you only need to install and load. These packages are called \texttt{sylly.XX}, where \texttt{XX} is a two letter abbreviation for the particular language. For instance, \texttt{sylly.de} adds support for German, whereas \texttt{sylly.en} adds support for English:
+
+\begin{Schunk}
+  \begin{Sinput}
+> sampleText <- c("This", "is", "a", "rather", "stupid", "demonstration")
+> library(sylly.en)
+> hyph.txt.en <- hyphen(sampleText, hyph.pattern="en")
+  \end{Sinput}
+%   \begin{Soutput}
+%   \end{Soutput}
+\end{Schunk}
+
+\section{Support new languages}
+
+Should there be no package for your language, you can import pattern files from the \LaTeX{} sources\footnote{Look for \texttt{*.pat.txt} files at \url{http://tug.ctan.org/tex-archive/language/hyph-utf8/tex/generic/hyph-utf8/patterns/txt/}} and use the result as \texttt{hyph.pattern}:
+
+\begin{Schunk}
+  \begin{Sinput}
+> hyph.is <- read.hyph.pat("~/patterns/hyph-is.pat.txt", lang="is")
+> hyph.txt.is <- hyphen(icelandicSampleText, hyph.pattern=hyph.is)
+  \end{Sinput}
+%   \begin{Soutput}
+%   \end{Soutput}
+\end{Schunk}
+
+\section{Correcting errors}
+
+\texttt{hyphen()} might not produce perfect results. As a rule of thumb, if in doubt it seems to behave rather conservative, that is, is might underestimate the real number of syllables in a text.
+
+Depending on your use case, the more accurate the end results should be, the less you should rely on automatic hyphenation alone. But it sure is a good starting point, for there is a function called \texttt{correct.hyph()} to help you clean these results of errors later on. The most comfortable way to do this is to call \texttt{hyphenText(hyph.txt.en)}, which will get you a data frame with two colums, \texttt{word} (the hyphenated words) and \texttt{syll} (the number of syllables), in a spread sheet editor:\footnote{For example, this can be comfortably done with RKWard: \url{http://rkward.kde.org}}
+
+\begin{Schunk}
+  \begin{Sinput}
+>  hyphenText(hyph.txt.en)
+  \end{Sinput}
+   \begin{Soutput}
+   syll     word
+[...]
+20    1    first
+21    1    place
+22    1  primary
+23    2 de-fense
+24    1      and
+[...]
+   \end{Soutput}
+\end{Schunk}
+
+You can then manually correct wrong hyphenations by removing or inserting ``-'' as hyphenation indicators, and call the function without further arguments, which will cause it to recount all syllables:
+
+\begin{Schunk}
+  \begin{Sinput}
+> hyph.txt.en <- correct.hyph(hyph.txt.en)
+  \end{Sinput}
+%   \begin{Soutput}
+%   \end{Soutput}
+\end{Schunk}
+
+Of course the function can also be used to alter entries on its own:
+
+\begin{Schunk}
+  \begin{Sinput}
+> hyph.txt.en <- correct.hyph(hyph.txt.en, word="primary", hyphen="pri-ma-ry")
+  \end{Sinput}
+   \begin{Soutput}
+Changed
+
+   syll    word
+22    1 primary
+
+  into
+
+   syll      word
+22    3 pri-ma-ry
+   \end{Soutput}
+\end{Schunk}
+
+\bibliographystyle{apacite}
+\addcontentsline{toc}{chapter}{\bibname}
+\bibliography{sylly_lit}
+\end{document}
