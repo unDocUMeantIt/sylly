@@ -37,7 +37,9 @@ Should there be no package for your language, you can import pattern files from 
 
 \begin{Schunk}
   \begin{Sinput}
-> hyph.is <- read.hyph.pat("~/patterns/hyph-is.pat.txt", lang="is")
+> url.is.pattern <- url("http://tug.ctan.org/tex-archive/language/hyph-utf8/tex/generic/hyph-utf8/patterns/txt/hyph-is.pat.txt")
+> hyph.is <- read.hyph.pat(url.is.pattern, lang="is")
+> close(url.is.pattern)
 > hyph.txt.is <- hyphen(icelandicSampleText, hyph.pattern=hyph.is)
   \end{Sinput}
 %   \begin{Soutput}

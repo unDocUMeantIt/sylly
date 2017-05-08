@@ -17,6 +17,7 @@ added:
     to "kRp.hyph", but can also be "data.frame" or "numeric"
   - new shortcut methods hyphen_df() and hyphen_c() use different defaults for
     "as"
+  - read.hyph.pat(): now also reads from connections, e.g., url()
 removed:
   - all hyphenation patterns are now in their own package called syll.<lang>
 

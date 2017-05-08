@@ -27,7 +27,7 @@
 #' used by other functions in this package or \code{koRpus}, it should resamble the designation that's used for the
 #' same language there.
 #'
-#' @param file A character string with a valid path to a file with hyphenation patterns (one pattern per line).
+#' @param file A connection or character string with a valid path to a file with hyphenation patterns (one pattern per line).
 #' @param lang A character string, usually two letters short, naming the language the patterns are meant to
 #'    be used with (e.g. "es" for Spanish).
 #' @param fileEncoding A character string defining the character encoding of the file to be read. Unless
@@ -48,12 +48,16 @@
 
 read.hyph.pat <- function(file, lang, fileEncoding="UTF-8"){
 
-  # check file
-  check.file(file, mode="exist")
+  if(inherits(file, "connection")){
+    hyphen.raw <- readLines(file)
+  } else {
+    # check file
+    check.file(file, mode="exist")
 
-  hyphen.file.con <- file(file, open="r", encoding=fileEncoding)
-  hyphen.raw <- readLines(hyphen.file.con)
-  close(hyphen.file.con)
+    hyphen.file.con <- file(file, open="r", encoding=fileEncoding)
+    hyphen.raw <- readLines(hyphen.file.con)
+    close(hyphen.file.con)
+  }
   # explicitly set encoding of this vector to generate objects which
   # do not cause warnings by R CMD check
   hyphen.raw <- enc2utf8(hyphen.raw)
