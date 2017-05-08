@@ -35,7 +35,11 @@
 #' }
 setMethod("show", signature(object="kRp.hyphen"), function(object){
   hyph <- slot(object, "hyphen")
-  middle <- data.frame(syll=NA, word="[...]    ", row.names="", stringsAsFactors=FALSE)
-  show.mtx <- rbind(head(hyph), middle, tail(hyph))
-  show(show.mtx)
+  if(nrow(hyph) > 15){
+    middle <- data.frame(syll=NA, word="[...]    ", row.names="", stringsAsFactors=FALSE)
+    show.mtx <- rbind(head(hyph), middle, tail(hyph))
+    show(show.mtx)
+  } else {
+    show(hyph)
+  }
 })

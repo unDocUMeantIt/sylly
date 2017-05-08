@@ -1,15 +1,22 @@
 ChangeLog for package sylly
 
-changes in version 0.1-1 (2017-05-05)
+changes in version 0.1-1 (2017-05-08)
 unreleased:
   - this version is under development
   - initial release
+changed:
+  - show(): method now only truncates the mid section of samples larger than
+    15 words
 added:
   - sylly_langpack(): a private method to generate packages with additional
     language support. it shouldn't be needed by regular users and is therefore
     not exported
   - koRpus2sylly(): a private function to convert old koRpus object files
     into sylly equivalents
+  - hyphen(): new option "as" to set the return value class, still defaults
+    to "kRp.hyph", but can also be "data.frame" or "numeric"
+  - new shortcut methods hyphen_df() and hyphen_c() use different defaults for
+    "as"
 removed:
   - all hyphenation patterns are now in their own package called syll.<lang>
 
