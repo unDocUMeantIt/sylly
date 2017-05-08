@@ -433,8 +433,17 @@ hyphen.word <- function(
 
 # min.length is set to 4 because we'll never hyphenate after the first of before the last letter, so
 # words with three letters or less cannot be hyphenated
-kRp.hyphen.calc <- function(words, hyph.pattern=NULL, min.length=4L, rm.hyph=TRUE,
-  quiet=FALSE, cache=TRUE, lang=NULL){
+kRp.hyphen.calc <- function(
+  words,
+  hyph.pattern=NULL,
+  min.length=4L,
+  rm.hyph=TRUE,
+  quiet=FALSE,
+  cache=TRUE,
+  lang=NULL,
+  as="kRp.hyphen" # can also be "data.frame" or "numeric" to return simpler objects.
+                  # "numeric" only returns the numeric results for each word/token
+){
 
   stopifnot(is.character(words))
 
@@ -594,7 +603,15 @@ kRp.hyphen.calc <- function(words, hyph.pattern=NULL, min.length=4L, rm.hyph=TRU
     write.hyph.cache.file(lang=lang, file=get.sylly.env(hyph.cache.file=TRUE, errorIfUnset=FALSE), quiet=quiet)
   } else {}
 
-  results <- new("kRp.hyphen", lang=lang, desc=desc.stat.res, hyphen=hyph.df[c("syll","word")])
+  if(identical(as, "kRp.hyphen")){
+    results <- new("kRp.hyphen", lang=lang, desc=desc.stat.res, hyphen=hyph.df[c("syll","word")])
+  } else if(identical(as, "data.frame")){
+    results <- hyph.df[c("syll","word")]
+  } else if(identical(as, "numeric")){
+    results <- hyph.df[["syll"]]
+  } else {
+    stop(simpleError("'as' must be one of \"kRp.hyphen\", \"data.frame\", or \"numeric\"!"))
+  }
 
   return(results)
 } ## end function kRp.hyphen.calc()

@@ -4,20 +4,30 @@
 \name{hyphen}
 \alias{hyphen}
 \alias{hyphen,character-method}
+\alias{hyphen_df,character-method}
+\alias{hyphen_c,character-method}
 \title{Automatic hyphenation}
 \usage{
 hyphen(words, ...)
 
 \S4method{hyphen}{character}(words, hyph.pattern = NULL, min.length = 4,
+  rm.hyph = TRUE, quiet = FALSE, cache = TRUE, as = "kRp.hyphen")
+
+\S4method{hyphen_df}{character}(words, hyph.pattern = NULL, min.length = 4,
+  rm.hyph = TRUE, quiet = FALSE, cache = TRUE)
+
+\S4method{hyphen_c}{character}(words, hyph.pattern = NULL, min.length = 4,
   rm.hyph = TRUE, quiet = FALSE, cache = TRUE)
 }
 \arguments{
-\item{words}{A character vector with words/tokens to be hyphenated.}
+\item{words}{Either a character vector with words/tokens to be hyphenated,
+      or any tagged text object generated with the \code{koRpus} package.}
 
 \item{...}{Only used for the method generic.}
 
 \item{hyph.pattern}{Either an object of class \code{\link[sylly]{kRp.hyph.pat-class}}, or
-a valid character string naming the language of the patterns to be used. See details.}
+a valid character string naming the language of the patterns to be used (must already be loaded,
+      see details).}
 
 \item{min.length}{Integer,
       number of letters a word must have for considering a hyphenation. \code{hyphen} will
@@ -35,51 +45,53 @@ current cache will be queried and new tokens also be added. Caches are language-
 i.e., they are cleaned at the end of a session. If you want to save these for later use,
       see the option \code{hyph.cache.file}
 in \code{\link[sylly:set.sylly.env]{set.sylly.env}}.}
+
+\item{as}{A character string defining the class of the object to be returned. Defaults to \code{"kRp.hyphen"},
+      but can also be
+set to \code{"data.frame"} or \code{"numeric"},
+      returning only the central \code{data.frame} or the numeric vector of counted syllables,
+respectively. For the latter two options,
+      you can alternatively use the shortcut methods \code{hyphen_df} or  \code{hyphen_c}.}
 }
 \value{
-An object of class \code{\link[sylly]{kRp.hyphen-class}}
+An object of class \code{\link[sylly]{kRp.hyphen-class}},
+      \code{data.frame} or a numeric vector, depending on the value
+   of the \code{as} argument.
 }
 \description{
 These methods implement word hyphenation, based on Liang's algorithm.
 }
 \details{
 For this to work the function must be told which pattern set it should use to
-find the right hyphenation spots. If \code{words} is an object that was tokenized and tagged with
-the \code{koRpus} package, its language definition might be used. Otherwise,
-      in addition to the
-words to be processed you must specify \code{hyph.pattern}. You have two options: If you
-want to use one of the built-in language patterns, just set it to the according
-language abbrevation. As of this version valid choices are:
-\itemize{
- \item {\code{"de"}} {--- German (new spelling, since 1996)}
- \item {\code{"de.old"}} {--- German (old spelling, 1901--1996)}
- \item {\code{"en"}} {--- English (UK)}
- \item {\code{"en.us"}} {--- English (US)}
- \item {\code{"es"}} {--- Spanish}
- \item {\code{"fr"}} {--- French}
- \item {\code{"it"}} {--- Italian}
- \item {\code{"ru"}} {--- Russian}
-}
+find the right hyphenation spots. The most straight forward way to add suuport
+for a particular language during a session is to load  the appropriate language
+package (e.g., the package \code{sylly.en} for English or \code{sylly.de} for German).
+
+After such a package was loaded, you can simply use the language abbreviation as
+the value for the \code{hyph.pattern} argument (like \code{"en"} for the English
+pattern set). If \code{words} is an object that was tokenized and tagged with
+the \code{koRpus} package, its language definition can be used instead, i.e. you
+don't need to specify \code{hyph.pattern}, \code{hyphen} will pick the language
+automatically.
+
 In case you'd rather use your own pattern set, \code{hyph.pattern} can be an
 object of class \code{kRp.hyph.pat}, alternatively.
-
-The built-in hyphenation patterns were derived from the patterns available on CTAN[1]
-under the terms of the LaTeX Project Public License[2],
-      see \code{\link[sylly:hyph.XX]{hyph.XX}}
-for detailed information.
 }
 \examples{
 \dontrun{
+library(sylly.en)
+sampleText <- c("This", "is", "a", "rather", "stupid", "demonstration")
+hyphen(sampleText, hyph.pattern="en")
+hyphen_df(sampleText, hyph.pattern="en")
+hyphen_c(sampleText, hyph.pattern="en")
+
+# using a koRpus object
 hyphen(tagged.text)
 }
 }
 \references{
 Liang, F.M. (1983). \emph{Word Hy-phen-a-tion by Com-put-er}.
      Dissertation, Stanford University, Dept. of Computer Science.
-
-[1] \url{http://tug.ctan.org/tex-archive/language/hyph-utf8/tex/generic/hyph-utf8/patterns/}
-
-[2] \url{http://www.ctan.org/tex-archive/macros/latex/base/lppl.txt}
 }
 \seealso{
 \code{\link[sylly:read.hyph.pat]{read.hyph.pat}},
