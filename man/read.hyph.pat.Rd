@@ -7,7 +7,7 @@
 read.hyph.pat(file, lang, fileEncoding = "UTF-8")
 }
 \arguments{
-\item{file}{A character string with a valid path to a file with hyphenation patterns (one pattern per line).}
+\item{file}{A connection or character string with a valid path to a file with hyphenation patterns (one pattern per line).}
 
 \item{lang}{A character string, usually two letters short,
       naming the language the patterns are meant to
