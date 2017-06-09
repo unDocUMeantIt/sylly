@@ -12,6 +12,8 @@ get.sylly.env(..., errorIfUnset = TRUE)
   \item{lang}{ Logical, whether the set language should be returned.}
   \item{hyph.cache.file}{ Logical,
       whether the set hyphenation cache file for \code{hyphen} should be returned.}
+  \item{hyph.max.token.length}{ Logical,
+      whether the set maximum token length should be returned.}
 }}
 
 \item{errorIfUnset}{Logical, if \code{TRUE} and the desired property is not set at all,

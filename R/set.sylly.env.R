@@ -28,6 +28,7 @@
 #'   \describe{
 #'     \item{lang}{ A character string specifying a valid language.}
 #'     \item{hyph.cache.file}{ A character string specifying a path to a file to use for storing already hyphenated data, used by \code{\link[sylly:hyphen]{hyphen}}.}
+#'     \item{hyph.max.token.length}{ A single number to set the internal cache size for tokens. The value should be set to the longest token to be hyphenated.}
 #'   }
 #'   To explicitly unset a value again, set it to an empty character string (e.g., \code{lang=""}).
 #' @param validate Logical, if \code{TRUE} given paths will be checked for actual availablity, and the function will fail if files can't be found.
@@ -47,7 +48,8 @@ set.sylly.env <- function(..., validate=TRUE){
   # set all desired variables
   lang <- sylly.vars[["lang"]]
   hyph.cache.file <- sylly.vars[["hyph.cache.file"]]
-  if (all(is.null(lang), is.null(hyph.cache.file))){
+  hyph.max.token.length <- sylly.vars[["hyph.max.token.length"]]
+  if (all(is.null(lang), is.null(hyph.cache.file), is.null(hyph.max.token.length))){
     stop(simpleError("You must at least set one (valid) parameter!"))
   } else {}
 
@@ -67,6 +69,14 @@ set.sylly.env <- function(..., validate=TRUE){
       stopifnot(is.character(hyph.cache.file))
       assign("hyph.cache.file", hyph.cache.file, envir=.sylly.env)
     }
+  } else {}
+
+  if(!is.null(hyph.max.token.length)){
+    stopifnot(all(is.numeric(hyph.max.token.length), isTRUE(length(hyph.max.token.length) == 1)))
+    assign("hyph.max.token.length", hyph.max.token.length, envir=as.environment(.sylly.env))
+    # regenerate internal object with all possible patterns of subcharacters for hyphenation
+    all.patterns <- explode.letters()
+    assign("all.patterns", all.patterns, envir=as.environment(.sylly.env))
   } else {}
 
   return(invisible(NULL))

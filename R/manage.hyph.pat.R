@@ -60,7 +60,7 @@
 
 ## function manage.hyph.pat()
 manage.hyph.pat <- function(hyph.pattern, get=NULL, set=NULL, rm=NULL,
-  word=NULL, min.length=3, rm.hyph=TRUE){
+  word=NULL, min.length=3L, rm.hyph=TRUE){
 
   if(inherits(hyph.pattern, "kRp.hyph.pat")) {
     hyph.pat <- hyph.pattern

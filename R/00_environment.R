@@ -20,5 +20,15 @@
 # empty environment for hyphenation information
 .sylly.env <- new.env()
 
-# we're safe for words up to 200 characters for hyphenation
-hyph.max.word.length <- 200L
+# non-exported function to generate internal objects when the package gets loaded
+.onLoad <- function(...) {
+  # we're safe for words up to 50 characters for hyphenation; if longer
+  # words are found, the cache will be adjusted automatically by
+  # the private function explode.word()
+  hyph.max.token.length <- 50L
+  assign("hyph.max.token.length", hyph.max.token.length, envir=as.environment(.sylly.env))
+  # generate internal object with all possible patterns of subcharacters
+  # for hyphenation, to speed up the process
+  all.patterns <- explode.letters()
+  assign("all.patterns", all.patterns, envir=as.environment(.sylly.env))
+}

@@ -12,6 +12,7 @@ set.sylly.env(..., validate = TRUE)
   \item{lang}{ A character string specifying a valid language.}
   \item{hyph.cache.file}{ A character string specifying a path to a file to use for storing already hyphenated data,
       used by \code{\link[sylly:hyphen]{hyphen}}.}
+  \item{hyph.max.token.length}{ A single number to set the internal cache size for tokens. The value should be set to the longest token to be hyphenated.}
 }
 To explicitly unset a value again, set it to an empty character string (e.g.,
       \code{lang=""}).}

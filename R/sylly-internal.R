@@ -66,7 +66,7 @@ koRpus2sylly <- function(path, replaceFile=TRUE){
 # 1 x 6: .word.
 #        123456
 #
-explode.letters <- function(max.word.length=hyph.max.word.length){
+explode.letters <- function(max.word.length=get.sylly.env(hyph.max.token.length=TRUE)){
   result <- lapply(
     1:max.word.length,
     function(wl){
@@ -86,10 +86,6 @@ explode.letters <- function(max.word.length=hyph.max.word.length){
   return(result)
 } ## end function explode.letters()
 
-# generate internal object with all possible patterns of subcharacters
-# for hyphenation, to speed up the process
-all.patterns <- explode.letters()
-
 
 ## function explode.word()
 # using the provided patterns, split an actual word into its subpatterns
@@ -97,20 +93,15 @@ all.patterns <- explode.letters()
 #   patterns, makes no sense to split further in the first place
 explode.word <- function(word, min.pattern=2L, max.pattern=5L){
   word.length <- nchar(word)
-  if(word.length > hyph.max.word.length){
-    stop(
-      simpleError(
-        paste0(
-          "Found a word with more than ", hyph.max.word.length, " characters:\n  ",
-          word, "\n",
-          "This was not expected and is not covered by the defaults, please inform the package author(s)!"
-        )
-      )
-    )
+  hyph.max.token.length <- get.sylly.env(hyph.max.token.length=TRUE)
+  if(word.length > hyph.max.token.length){
+    # update internal pattern cache to cope with longer words
+    set.sylly.env(hyph.max.token.length=word.length + 5)
   } else {}
   if(word.length <= min.pattern){
     result <- data.frame(frag=word, on=1L, off=min(word.length, min.pattern))
   } else {
+    all.patterns <- mget("all.patterns", envir=as.environment(.sylly.env), ifnotfound=list(NULL))[["all.patterns"]]
     result.list <- sapply(
       unlist(all.patterns[[word.length]][min.pattern:min(word.length, max.pattern)], recursive=FALSE),
       function(lttrs){

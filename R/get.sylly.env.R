@@ -25,6 +25,7 @@
 #'   \describe{
 #'     \item{lang}{ Logical, whether the set language should be returned.}
 #'     \item{hyph.cache.file}{ Logical, whether the set hyphenation cache file for \code{hyphen} should be returned.}
+#'     \item{hyph.max.token.length}{ Logical, whether the set maximum token length should be returned.}
 #'   }
 #' @param errorIfUnset Logical, if \code{TRUE} and the desired property is not set at all, the function will fail with an error message.
 #' @return A character string or list, possibly including:
@@ -45,8 +46,8 @@ get.sylly.env <- function(..., errorIfUnset=TRUE){
   # set all desired variables
   lang <- sylly.vars[["lang"]]
   hyph.cache.file <- sylly.vars[["hyph.cache.file"]]
-  hyph.max.word.length <- sylly.vars[["hyph.max.word.length"]]
-  if (all(is.null(lang), is.null(hyph.cache.file), is.null(hyph.max.word.length))){
+  hyph.max.token.length <- sylly.vars[["hyph.max.token.length"]]
+  if (all(is.null(lang), is.null(hyph.cache.file), is.null(hyph.max.token.length))){
     stop(simpleError("You must at least set one (valid) parameter!"))
   } else {}
   if(!all(is.logical(unlist(sylly.vars)))){
@@ -75,9 +76,9 @@ get.sylly.env <- function(..., errorIfUnset=TRUE){
     }
   } else {}
 
-  if(isTRUE(hyph.max.word.length)){
-    if(exists("hyph.max.word.length", envir=.sylly.env, inherits=FALSE)){
-      tt.env$hyph.max.word.length <- get("hyph.max.word.length", envir=.sylly.env)
+  if(isTRUE(hyph.max.token.length)){
+    if(exists("hyph.max.token.length", envir=.sylly.env, inherits=FALSE)){
+      tt.env$hyph.max.token.length <- get("hyph.max.token.length", envir=.sylly.env)
     } else {
       if(isTRUE(errorIfUnset)){
         stop(simpleError("No maximum word length specified!"))
