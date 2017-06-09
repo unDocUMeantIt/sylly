@@ -27,7 +27,7 @@ BugReports: https://github.com/unDocUMeantIt/sylly/issues
 Authors@R: c(person(given="m.eik", family="michalke",
         email="meik.michalke@hhu.de", role=c("aut", "cre")))
 Version: 0.1-1
-Date: 2017-06-09
+Date: 2017-06-10
 Collate: 
     '00_environment.R'
     '01_class_01_kRp.hyph.pat.R'

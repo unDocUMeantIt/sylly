@@ -1,0 +1,43 @@
+\name{NEWS}
+\title{News for Package 'sylly'}
+\encoding{UTF-8}
+\section{Changes in sylly version 0.1-1 (2017-06-10)}{
+  \subsection{changed}{
+    \itemize{
+      \item initial release
+      \item \code{show()}: method now only truncates the mid section of samples larger than
+        15 words
+      \item all.patterns: this internal cache object is now dynymically generated
+        when the package is loaded, which slows down the loading process but saves
+        ~6.5MB in package size
+      \item hyph.max.token.length: this object was moved into the internal .sylly.env
+        environment and also defaults to max token length of 50, not 200; that
+        should be enough, is much faster and can also be changed dynamically (see
+        \code{set.sylly.env()} below); manual changes shouldn't be needed, though, because
+        the length is being adjusted automatically if needed; it was also renamed
+        from hyph.max.word.length
+    }
+  }
+  \subsection{added}{
+    \itemize{
+      \item \code{sylly_langpack()}: a private method to generate packages with additional
+        language support. it shouldn't be needed by regular users and is therefore
+        not exported
+      \item \code{koRpus2sylly()}: a private function to convert old koRpus object files
+        into sylly equivalents
+      \item \code{hyphen()}: new option \code{"as"} to set the return value class, still defaults
+        to \code{"kRp.hyph"}, but can also be \code{"data.frame"} or \code{"numeric"}
+      \item new shortcut methods \code{hyphen_df()} and \code{hyphen_c()} use different defaults
+        for \code{"as"}
+      \item \code{read.hyph.pat()}: now also reads from connections, e.g., \code{url()}
+      \item \code{set.sylly.env()}: now also supports \code{"hyph.max.token.length"} as an option
+        to manually set the maximum token length, affects the private object
+        \code{"all.patterns"} (will be regenerated)
+    }
+  }
+  \subsection{removed}{
+    \itemize{
+      \item all hyphenation patterns are now in their own package called syll.<lang>
+    }
+  }
+}
