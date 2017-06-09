@@ -4,7 +4,11 @@
 \name{hyphen}
 \alias{hyphen}
 \alias{hyphen,character-method}
+\alias{hyphen_df}
+\alias{hyphen_df,-methods}
 \alias{hyphen_df,character-method}
+\alias{hyphen_c}
+\alias{hyphen_c,-methods}
 \alias{hyphen_c,character-method}
 \title{Automatic hyphenation}
 \usage{
@@ -13,8 +17,12 @@ hyphen(words, ...)
 \S4method{hyphen}{character}(words, hyph.pattern = NULL, min.length = 4,
   rm.hyph = TRUE, quiet = FALSE, cache = TRUE, as = "kRp.hyphen")
 
+hyphen_df(words, ...)
+
 \S4method{hyphen_df}{character}(words, hyph.pattern = NULL, min.length = 4,
   rm.hyph = TRUE, quiet = FALSE, cache = TRUE)
+
+hyphen_c(words, ...)
 
 \S4method{hyphen_c}{character}(words, hyph.pattern = NULL, min.length = 4,
   rm.hyph = TRUE, quiet = FALSE, cache = TRUE)

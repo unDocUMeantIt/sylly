@@ -1,10 +1,8 @@
 ChangeLog for package sylly
 
-changes in version 0.1-1 (2017-05-08)
-unreleased:
-  - this version is under development
-  - initial release
+changes in version 0.1-1 (2017-06-09)
 changed:
+  - initial release
   - show(): method now only truncates the mid section of samples larger than
     15 words
 added:
@@ -15,8 +13,8 @@ added:
     into sylly equivalents
   - hyphen(): new option "as" to set the return value class, still defaults
     to "kRp.hyph", but can also be "data.frame" or "numeric"
-  - new shortcut methods hyphen_df() and hyphen_c() use different defaults for
-    "as"
+  - new shortcut methods hyphen_df() and hyphen_c() use different defaults
+    for "as"
   - read.hyph.pat(): now also reads from connections, e.g., url()
 removed:
   - all hyphenation patterns are now in their own package called syll.<lang>

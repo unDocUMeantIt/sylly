@@ -93,6 +93,9 @@ setMethod("hyphen", signature(words="character"), function(words,
   }
 )
 
+#' @export
+#' @aliases hyphen_df,-methods
+#' @rdname hyphen-methods
 setGeneric("hyphen_df", function(words, ...) standardGeneric("hyphen_df"))
 #' @export
 #' @aliases hyphen_df,character-method
@@ -107,6 +110,9 @@ setMethod("hyphen_df", signature(words="character"), function(words,
   }
 )
 
+#' @export
+#' @aliases hyphen_c,-methods
+#' @rdname hyphen-methods
 setGeneric("hyphen_c", function(words, ...) standardGeneric("hyphen_c"))
 #' @export
 #' @aliases hyphen_c,character-method

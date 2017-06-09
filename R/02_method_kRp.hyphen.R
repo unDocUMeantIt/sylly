@@ -27,6 +27,7 @@
 #'   \item{\code{hyphenText()} }{returns the \code{hyphen} slot from objects of class \code{kRp.hyphen}.}
 #'   \item{\code{[}/\code{[[} }{Can be used as a shortcut to index the results of \code{hyphenText()}.}
 #' }
+#' @param obj An object of class \code{\link[sylly:kRp.hyphen-class]{kRp.hyphen}}.
 #' @docType methods
 #' @export
 #' @rdname kRp.hyphen-methods
@@ -142,6 +143,9 @@ setMethod("hyphenText<-",
   }
 )
 
+#' @param x An object of class \code{\link[sylly:kRp.hyphen-class]{kRp.hyphen}}.
+#' @param i Row index.
+#' @param j Column index.
 #' @rdname kRp.hyphen-methods
 #' @export
 #' @docType methods
@@ -156,6 +160,7 @@ setMethod("[",
   }
 )
 
+#' @param value A value to set.
 #' @rdname kRp.hyphen-methods
 #' @export
 #' @docType methods
