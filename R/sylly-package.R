@@ -3,7 +3,7 @@
 #' \tabular{ll}{
 #' Package: \tab sylly\cr
 #' Type: \tab Package\cr
-#' Version: \tab 0.1-1\cr
+#' Version: \tab 0.1-2\cr
 #' Date: \tab 2017-06-10\cr
 #' Depends: \tab R (>= 3.0.0),methods\cr
 #' Encoding: \tab UTF-8\cr
