@@ -3,7 +3,9 @@ Type: Package
 Title: Hyphenation and Syllable Counting for Text Analysis
 Author: m.eik michalke [aut, cre]
 Maintainer: m.eik michalke <meik.michalke@hhu.de>
-Depends: R (>= 3.0.0),methods
+Depends: R (>= 3.0.0)
+Imports: methods
+Suggests: testthat
 Description: This is a native R implementation of the hyphenation
         algorithm used for 'TeX'/'LaTeX' and similar software, as
         proposed by Liang (1983). Mainly contains the function
@@ -27,7 +29,7 @@ BugReports: https://github.com/unDocUMeantIt/sylly/issues
 Authors@R: c(person(given="m.eik", family="michalke",
         email="meik.michalke@hhu.de", role=c("aut", "cre")))
 Version: 0.1-2
-Date: 2017-06-10
+Date: 2017-09-11
 Collate: 
     '00_environment.R'
     '01_class_01_kRp.hyph.pat.R'

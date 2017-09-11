@@ -14,9 +14,12 @@ subscribe to the [koRpus-dev mailing list](http://korpusml.reaktanz.de).
 
 More information on sylly is available on the [project homepage](https://reaktanz.de/?c=hacking&s=koRpus).
 
-## Status
+## Language support
 
-This is in no way a finished package! Use for experiments only, nothing here is stable!
+This package contains class definitions, generic methods and tools for hyphenation, but no
+out-of-the-box support for any particular language. If you're interested in using the 'sylly'
+package for actual hyphenation, look for packages called 'sylly.XX', where 'XX' abbreviates
+the language you're looking for (e.g., 'sylly.en' for English or 'sylly.de' for German).
 
 ## Installation
 

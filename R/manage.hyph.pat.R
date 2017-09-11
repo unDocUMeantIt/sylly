@@ -84,9 +84,7 @@ manage.hyph.pat <- function(hyph.pattern, get=NULL, set=NULL, rm=NULL,
     hyphen.pars <- cbind(orig=set, char=hyphen.char, nums=hyphen.nums)
     # check if we have duplicate entries now, then replace the old one
     old.pattern <- hyph.pat@pattern[!hyph.pat@pattern[, "char"] %in% hyphen.char,]
-    new.pattern <- rbind(old.pattern, hyphen.pars)
-    # order results
-    hyph.pat@pattern <- new.pattern[order(new.pattern[,1]),]
+    hyph.pat@pattern <- rbind(old.pattern, hyphen.pars)
     result <- hyph.pat
   } else if(!is.null(rm)){
     hyph.pat@pattern <- hyph.pat@pattern[!hyph.pat@pattern[, "char"] %in% rm,]

@@ -1,6 +1,20 @@
 \name{NEWS}
 \title{News for Package 'sylly'}
 \encoding{UTF-8}
+\section{Changes in sylly version 0.1-2 (2017-09-11)}{
+  \subsection{changed}{
+    \itemize{
+      \item first CRAN release
+      \item replaced status warnin in README.md with info on additional language
+        support
+    }
+  }
+  \subsection{removed}{
+    \itemize{
+      \item file ChangeLog_hyph_patterns.txt
+    }
+  }
+}
 \section{Changes in sylly version 0.1-1 (2017-06-10)}{
   \subsection{changed}{
     \itemize{

@@ -2,12 +2,12 @@ bibentry("Manual",
     title="sylly: Hyphenation and Syllable Counting for Text Analysis",
     author="m.eik michalke",
     year="2017",
-    note="(Version 0.1-1)",
+    note="(Version 0.1-2)",
     url="https://reaktanz.de/?c=hacking&s=koRpus",
 
     textVersion =
     paste("michalke, m. (2017). ",
-        "sylly: Hyphenation and Syllable Counting for Text Analysis (Version 0.1-1). ",
+        "sylly: Hyphenation and Syllable Counting for Text Analysis (Version 0.1-2). ",
         "Available from https://reaktanz.de/?c=hacking&s=koRpus",
         sep=""),
 

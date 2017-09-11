@@ -627,7 +627,7 @@ optimize.hyph.pattern <- function(hyph.pat){
     ),
     nm=pattern.matrix[,"char"]
   )
-  # "kRp.hyph.pat.env" in an internal class, defined in 01_class_01_kRp.hyph.pat.R
+  # "kRp.hyph.pat.env" is an internal class, defined in 01_class_01_kRp.hyph.pat.R
   new.hyph.pat <- new("kRp.hyph.pat.env",
     lang=slot(hyph.pat, "lang"),
     min.pat=min(nchar(pattern.matrix[,"char"])),

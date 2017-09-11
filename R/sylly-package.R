@@ -4,8 +4,8 @@
 #' Package: \tab sylly\cr
 #' Type: \tab Package\cr
 #' Version: \tab 0.1-2\cr
-#' Date: \tab 2017-06-10\cr
-#' Depends: \tab R (>= 3.0.0),methods\cr
+#' Date: \tab 2017-09-11\cr
+#' Depends: \tab R (>= 3.0.0)\cr
 #' Encoding: \tab UTF-8\cr
 #' License: \tab GPL (>= 3)\cr
 #' LazyLoad: \tab yes\cr

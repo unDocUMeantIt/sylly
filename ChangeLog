@@ -1,8 +1,15 @@
 ChangeLog for package sylly
 
-changes in version 0.1-2 (2017-06-10)
-unreleased:
-  - this release is under development
+changes in version 0.1-2 (2017-09-11)
+changed:
+  - first CRAN release
+  - replaced status warnin in README.md with info on additional language
+    support
+  - manage.hyph.pat() no longer orders patterns, which was rather useless
+added:
+  - unit tests for all main functions and methods
+removed:
+  - file ChangeLog_hyph_patterns.txt
 
 changes in version 0.1-1 (2017-06-10)
 changed:
