@@ -11,7 +11,7 @@ Hyphenation and Syllable Counting for Text Analysis.
 \tabular{ll}{
 Package: \tab sylly\cr
 Type: \tab Package\cr
-Version: \tab 0.1-2\cr
+Version: \tab 0.1-3\cr
 Date: \tab 2017-09-12\cr
 Depends: \tab R (>= 3.0.0)\cr
 Encoding: \tab UTF-8\cr
