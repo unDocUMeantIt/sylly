@@ -1,12 +1,18 @@
 \name{NEWS}
 \title{News for Package 'sylly'}
 \encoding{UTF-8}
-\section{Changes in sylly version 0.1-2 (2017-09-11)}{
+\section{Changes in sylly version 0.1-2 (2017-09-12)}{
   \subsection{changed}{
     \itemize{
       \item first CRAN release
       \item replaced status warnin in README.md with info on additional language
         support
+      \item \code{manage.hyph.pat()} no longer orders patterns, which was rather useless
+    }
+  }
+  \subsection{added}{
+    \itemize{
+      \item unit tests for all main functions and methods
     }
   }
   \subsection{removed}{

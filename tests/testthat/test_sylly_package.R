@@ -1,8 +1,7 @@
 context("environment")
 
 test_that("setting environment variables", {
-  cacheFile <- tempfile()
-  set.sylly.env(lang="xy", hyph.cache.file=cacheFile, hyph.max.token.length=30)
+  set.sylly.env(lang="xy", hyph.cache.file="test", hyph.max.token.length=30)
   
   expect_match(
     get.sylly.env(lang=TRUE),
@@ -10,7 +9,7 @@ test_that("setting environment variables", {
   )
   expect_match(
     get.sylly.env(hyph.cache.file=TRUE),
-    cacheFile
+    "test"
   )
   expect_identical(
     get.sylly.env(hyph.max.token.length=TRUE),
