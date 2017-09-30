@@ -7,10 +7,10 @@ by [Liang (1983)](https://tug.org/docs/liang/). Mainly contains the function 'hy
 be used for hyphenation/syllable counting of text objects. It was originally developed
 for and part of the 'koRpus' package, but later released as a separate package so it's
 lighter to have this particular functionality available for other packages. Support for
-additional languages can be added on-the-fly or by plugin packages. Due to some restrictions on
-CRAN, the full package sources are only available from the project homepage. To ask for
-help, report bugs, request features, or discuss the development of the package, please
-subscribe to the [koRpus-dev mailing list](http://korpusml.reaktanz.de).
+additional languages can be added on-the-fly or by [plugin packages](https://undocumeantit.github.io/repos/).
+Due to some restrictions on CRAN, the full package sources are only available from the
+project homepage. To ask for help, report bugs, request features, or discuss the development
+of the package, please subscribe to the [koRpus-dev mailing list](http://korpusml.reaktanz.de).
 
 More information on sylly is available on the [project homepage](https://reaktanz.de/?c=hacking&s=koRpus).
 
@@ -18,8 +18,10 @@ More information on sylly is available on the [project homepage](https://reaktan
 
 This package contains class definitions, generic methods and tools for hyphenation, but no
 out-of-the-box support for any particular language. If you're interested in using the 'sylly'
-package for actual hyphenation, look for packages called 'sylly.XX', where 'XX' abbreviates
-the language you're looking for (e.g., 'sylly.en' for English or 'sylly.de' for German).
+package for actual hyphenation, it is recommended to look for a matching language package at
+the [l10n](https://undocumeantit.github.io/repos/) repository. the packages
+are called 'sylly.XX', where 'XX' abbreviates the language you're looking for (e.g.,
+'sylly.en' for English or 'sylly.de' for German).
 
 ## Installation
 
