@@ -19,7 +19,7 @@
 
 The method \texttt{hyphen()} takes vectors of character strings (i.e., single words) and applies an hyphenation algorithm \cite{liang_word_1983} to each word. This algorithm was originally developed for automatic word hyphenation in \LaTeX{}, and is gracefully misused here to fulfill a slightly different service.\footnote{The \texttt{hyphen()} method was originally implemented as part of the \texttt{koRpus} package, but was later split off into its own package, which is \texttt{sylly}. \texttt{koRpus} adds further \texttt{hyphen()} methods so they can be used on tokenized and POS tagged objects directly.}
 
-\texttt{hyphen()} needs a set of hyphenation patterns for each language it should analyze. If you're lucky, there's already a pre-built package for your language of interest that you only need to install and load. These packages are called \texttt{sylly.XX}, where \texttt{XX} is a two letter abbreviation for the particular language. For instance, \texttt{sylly.de} adds support for German, whereas \texttt{sylly.en} adds support for English:
+\texttt{hyphen()} needs a set of hyphenation patterns for each language it should analyze. If you're lucky, there's already a pre-built package\footnote{Officially supported packages can be found in the \texttt{l10n} repository: \url{https://undocumeantit.github.io/repos}} for your language of interest that you only need to install and load. These packages are called \texttt{sylly.XX}, where \texttt{XX} is a two letter abbreviation for the particular language. For instance, \texttt{sylly.de} adds support for German, whereas \texttt{sylly.en} adds support for English:
 
 \begin{Schunk}
   \begin{Sinput}
@@ -45,7 +45,8 @@ Should there be no package for your language, you can import pattern files from 
 
 \begin{Schunk}
   \begin{Sinput}
-> url.is.pattern <- url("http://tug.ctan.org/tex-archive/language/hyph-utf8/tex/generic/hyph-utf8/patterns/txt/hyph-is.pat.txt")
+> url.is.pattern <- url("http://tug.ctan.org/tex-archive/language/hyph-
+utf8/tex/generic/hyph-utf8/patterns/txt/hyph-is.pat.txt")
 > hyph.is <- read.hyph.pat(url.is.pattern, lang="is")
 > close(url.is.pattern)
 > hyph.txt.is <- hyphen(icelandicSampleText, hyph.pattern=hyph.is)
@@ -90,7 +91,8 @@ Of course the function can also be used to alter entries on its own:
 
 \begin{Schunk}
   \begin{Sinput}
-> hyph.txt.en <- correct.hyph(hyph.txt.en, word="primary", hyphen="pri-ma-ry")
+> hyph.txt.en <- correct.hyph(hyph.txt.en, word="primary",
++ hyphen="pri-ma-ry")
   \end{Sinput}
    \begin{Soutput}
 Changed
