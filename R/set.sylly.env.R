@@ -38,10 +38,8 @@
 #' @seealso \code{\link[sylly:get.sylly.env]{get.sylly.env}}
 #' @export
 #' @examples
-#' \dontrun{
-#' set.sylly.env(hyph.cache.file="/tmp/cache_file.RData")
+#' set.sylly.env(hyph.cache.file=file.path(tempdir(), "cache_file.RData"))
 #' get.sylly.env(hyph.cache.file=TRUE)
-#' }
 
 set.sylly.env <- function(..., validate=TRUE){
   sylly.vars <- list(...)

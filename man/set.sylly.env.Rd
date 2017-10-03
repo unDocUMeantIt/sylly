@@ -33,10 +33,8 @@ To get the contents of the hidden environment,
 can be used.
 }
 \examples{
-\dontrun{
-set.sylly.env(hyph.cache.file="/tmp/cache_file.RData")
+set.sylly.env(hyph.cache.file=file.path(tempdir(), "cache_file.RData"))
 get.sylly.env(hyph.cache.file=TRUE)
-}
 }
 \seealso{
 \code{\link[sylly:get.sylly.env]{get.sylly.env}}

@@ -31,10 +31,8 @@ whether a cache file should be used,
       if it was set before using \code{\link[sylly:set.sylly.env]{set.sylly.env}}.
 }
 \examples{
-\dontrun{
-set.sylly.env(hyph.cache.file="/tmp/cache_file.RData")
+set.sylly.env(hyph.cache.file=file.path(tempdir(), "cache_file.RData"))
 get.sylly.env(hyph.cache.file=TRUE)
-}
 }
 \seealso{
 \code{\link[sylly:set.sylly.env]{set.sylly.env}}
