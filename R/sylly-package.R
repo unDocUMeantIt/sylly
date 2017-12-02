@@ -3,13 +3,13 @@
 #' \tabular{ll}{
 #' Package: \tab sylly\cr
 #' Type: \tab Package\cr
-#' Version: \tab 0.1-3\cr
-#' Date: \tab 2017-10-03\cr
+#' Version: \tab 0.1-4\cr
+#' Date: \tab 2017-12-02\cr
 #' Depends: \tab R (>= 3.0.0)\cr
 #' Encoding: \tab UTF-8\cr
 #' License: \tab GPL (>= 3)\cr
 #' LazyLoad: \tab yes\cr
-#' URL: \tab https://reaktanz.de/?c=hacking&s=koRpus\cr
+#' URL: \tab https://reaktanz.de/?c=hacking&s=sylly\cr
 #' }
 #'
 #' Provides the hyphenation algorithm used for 'TeX'/'LaTeX' and similar software, as
