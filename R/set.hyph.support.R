@@ -78,7 +78,7 @@ set.hyph.support <- function(value){
     if(inherits(value[[this.pattern]], "kRp.hyph.pat")){
       # we got a pattern object, directly add it to the environment
       recent.pattern[[this.pattern]] <- this.pattern
-      assign(paste0("hyph.", this.pattern), value[[this.pattern]], envir=as.environment(.sylly.env))
+      assign(paste0("hyph.", this.pattern), optimize.hyph.pattern(value[[this.pattern]]), envir=as.environment(.sylly.env))
     } else {
       recent.pattern[[this.pattern]] <- value[[this.pattern]]
     }

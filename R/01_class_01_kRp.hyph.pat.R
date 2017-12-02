@@ -67,7 +67,7 @@ setValidity("kRp.hyph.pat", function(object){
 })
 
 # this internally used S4 class is an optimized version of kRp.hyph.pat,
-# using an environment instead of a mtrix for the pattern slot for better speed
+# using an environment instead of a matrix for the pattern slot for better speed
 setClass("kRp.hyph.pat.env",
   representation=representation(
     lang="character",
