@@ -1,5 +1,9 @@
 ChangeLog for package sylly
 
+changes in version 0.1-5 (2018-01-07)
+unreleased:
+  - this release is under development
+
 changes in version 0.1-4 (2018-01-06)
 fixed:
   - set.hyph.support(): call optimize.hyph.pattern() on "kRp.hyph.pat" class
