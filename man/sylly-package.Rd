@@ -12,7 +12,7 @@ Hyphenation and Syllable Counting for Text Analysis.
 Package: \tab sylly\cr
 Type: \tab Package\cr
 Version: \tab 0.1-4\cr
-Date: \tab 2017-12-02\cr
+Date: \tab 2018-01-06\cr
 Depends: \tab R (>= 3.0.0)\cr
 Encoding: \tab UTF-8\cr
 License: \tab GPL (>= 3)\cr

@@ -1,6 +1,14 @@
 \name{NEWS}
 \title{News for Package 'sylly'}
 \encoding{UTF-8}
+\section{Changes in sylly version 0.1-4 (2018-01-06)}{
+  \subsection{fixed}{
+    \itemize{
+      \item \code{set.hyph.support()}: call \code{optimize.hyph.pattern()} on \code{"kRp.hyph.pat"} class
+        objects to be added to the environment
+    }
+  }
+}
 \section{Changes in sylly version 0.1-3 (2017-10-02)}{
   \subsection{changed}{
     \itemize{
