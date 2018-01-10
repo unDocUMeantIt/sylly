@@ -21,9 +21,12 @@
 #' These methods implement word hyphenation, based on Liang's algorithm.
 #'
 #' For this to work the function must be told which pattern set it should use to
-#' find the right hyphenation spots. The most straight forward way to add suuport
-#' for a particular language during a session is to load  the appropriate language
+#' find the right hyphenation spots. The most straight forward way to add support
+#' for a particular language during a session is to load an appropriate language
 #' package (e.g., the package \code{sylly.en} for English or \code{sylly.de} for German).
+#' See \code{\link[sylly:available.sylly.lang]{available.sylly.lang}} and
+#' \code{\link[sylly:install.sylly.lang]{install.sylly.lang}} for more informatin on how
+#' to get language support packages.
 #'
 #' After such a package was loaded, you can simply use the language abbreviation as
 #' the value for the \code{hyph.pattern} argument (like \code{"en"} for the English
@@ -55,7 +58,9 @@
 # @author m.eik michalke \email{meik.michalke@@hhu.de}
 #' @seealso
 #'    \code{\link[sylly:read.hyph.pat]{read.hyph.pat}},
-#'    \code{\link[sylly:manage.hyph.pat]{manage.hyph.pat}}
+#'    \code{\link[sylly:manage.hyph.pat]{manage.hyph.pat}},
+#'    \code{\link[sylly:available.sylly.lang]{available.sylly.lang}}, and
+#'    \code{\link[sylly:install.sylly.lang]{install.sylly.lang}}
 #' @references
 #'  Liang, F.M. (1983). \emph{Word Hy-phen-a-tion by Com-put-er}.
 #'      Dissertation, Stanford University, Dept. of Computer Science.

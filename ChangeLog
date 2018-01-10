@@ -1,8 +1,11 @@
 ChangeLog for package sylly
 
-changes in version 0.1-5 (2018-01-07)
+changes in version 0.1-5 (2018-01-10)
 unreleased:
   - this release is under development
+added:
+  - new functions available.sylly.lang() and install.sylly.lang() to
+    comfortably install language packages
 
 changes in version 0.1-4 (2018-01-06)
 fixed:
