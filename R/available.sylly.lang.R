@@ -62,23 +62,22 @@ available.sylly.lang <- function(repos="https://undocumeantit.github.io/repos/l1
   } else {}
 
   supported_lang <- names(all_available)
-  installed <- sapply(
-    supported_lang,
-    function(this_lang){
-      this_package <- all_available[[this_lang]]
-      if(isTRUE(this_package[["installed"]])){
-        status <- " [installed"
-        if(isTRUE(this_package[["loaded"]])){
-          status <- paste0(status, ", loaded]")
-        } else {
-          status <- paste0(status, "]")
-        }
+  installed <- c()
+  to_install <- c()
+  for(this_lang in supported_lang){
+    this_package <- all_available[[this_lang]]
+    if(isTRUE(this_package[["installed"]])){
+      installed[this_lang] <- " [installed"
+      if(isTRUE(this_package[["loaded"]])){
+        installed[this_lang] <- paste0(installed[this_lang], ", loaded]")
       } else {
-        status <- paste0(" --> install.sylly.lang(\"", gsub("sylly\\.lang\\.", "", this_lang), "\")")
+        installed[this_lang] <- paste0(installed[this_lang], "]")
       }
-      return(status)
+    } else {
+      installed[this_lang] <- ""
+      to_install[this_lang] <- gsub("sylly\\.", "", this_lang)
     }
-  )
+  }
 
   lang_msg <- paste0(
     "The following language support packages are currently available:\n\n  ",
@@ -86,7 +85,18 @@ available.sylly.lang <- function(repos="https://undocumeantit.github.io/repos/l1
       paste0(supported_lang, installed),
       collapse="\n  "
     ),
-    "\n"
+    "\n",
+    if(length(to_install) > 1){
+      paste0(
+        "\nTo install all missing packages, run:\n\n  ",
+        paste0("install.sylly.lang(c(\"", paste0(to_install, collapse="\", \""), "\"))\n")
+      )
+    } else if(length(to_install) > 0){
+      paste0(
+        "\nTo install the missing package, run:\n\n  ",
+        paste0("install.sylly.lang(\"", to_install, "\")\n")
+      )
+    } else {}
   )
 
   message(lang_msg)
