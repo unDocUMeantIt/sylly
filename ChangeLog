@@ -1,8 +1,14 @@
 ChangeLog for package sylly
 
-changes in version 0.1-5 (2018-01-10)
+changes in version 0.1-5 (2018-01-31)
 unreleased:
   - this release is under development
+changed:
+  - session settings done with set.sylly.env() or queried by get.sylly.env()
+    are no longer stored in an internal environment but the global .Options;
+    this also allows for setting defaults in an .Rprofile file using options()
+  - vignette is now in RMarkdown/HTML format; the SWeave/PDF version was
+    dropped
 added:
   - new functions available.sylly.lang() and install.sylly.lang() to
     comfortably install language packages

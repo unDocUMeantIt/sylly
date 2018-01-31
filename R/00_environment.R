@@ -1,4 +1,4 @@
-# Copyright 2010-2017 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2010-2018 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package sylly.
 #
@@ -25,8 +25,25 @@
   # we're safe for words up to 50 characters for hyphenation; if longer
   # words are found, the cache will be adjusted automatically by
   # the private function explode.word()
-  hyph.max.token.length <- 50L
-  assign("hyph.max.token.length", hyph.max.token.length, envir=as.environment(.sylly.env))
+  if(is.null(getOption("sylly"))){
+    # case one: no sylly options at all, that's easy
+    options(sylly=list(hyph.max.token.length=50L))
+  } else {
+    sylly_options <- getOption("sylly", list())
+    if(is.null(sylly_options[["hyph.max.token.length"]])){
+      # case two, we have options, but hyph.max.token.length is not set
+      sylly_options[["hyph.max.token.length"]] <- 50L
+      options(sylly=sylly_options)
+    } else {
+      if(!all(
+        is.numeric(sylly_options[["hyph.max.token.length"]]),
+        isTRUE(length(sylly_options[["hyph.max.token.length"]]) == 1))
+      ){
+        # case three, hyph.max.token.length is set but invalid
+        simpleError("check your environment: 'sylly$hyph.max.token.length' must be a single numeric value!")
+      } else {}
+    }
+  }
   # generate internal object with all possible patterns of subcharacters
   # for hyphenation, to speed up the process
   all.patterns <- explode.letters()

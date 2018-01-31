@@ -1,4 +1,4 @@
-# Copyright 2010-2017 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2010-2018 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package sylly.
 #
@@ -18,11 +18,13 @@
 
 #' A function to set information on your sylly environment
 #'
-#' The function \code{set.sylly.env} can be called before any of the hyphenation functions. It preserves some information
-#' on your current session's settings to a hidden environment.
+#' The function \code{set.sylly.env} can be called before any of the hyphenation functions.  It writes information
+#' on your current session's settings to your global \code{\link[base:.Options]{.Options}}.
 #'
-#' To get the contents of the hidden environment, the function \code{\link[sylly:get.sylly.env]{get.sylly.env}}
-#' can be used.
+#' To get the current settings, the function \code{\link[sylly:get.sylly.env]{get.sylly.env}}
+#' should be used. For the most part, \code{set.sylly.env} is a convenient wrapper for
+#' \code{\link[base:options]{options}}. To permanently set some defaults, you could also add
+#' respective \code{options} calls to an \code{\link[base:.Rprofile]{.Rprofile}} file.
 #'
 #' @param ... Named parameters to set in the sylly environment. Valid arguments are:
 #'   \describe{
@@ -32,6 +34,7 @@
 #'   }
 #'   To explicitly unset a value again, set it to an empty character string (e.g., \code{lang=""}).
 #' @param validate Logical, if \code{TRUE} given paths will be checked for actual availablity, and the function will fail if files can't be found.
+#'    This option is currently without any effect, as it does not apply to \code{hyph.cache.file} because that file will be created automatically if needed.
 #' @return Returns an invisible \code{NULL}.
 # @author m.eik michalke \email{meik.michalke@@hhu.de}
 #' @keywords misc
@@ -40,6 +43,18 @@
 #' @examples
 #' set.sylly.env(hyph.cache.file=file.path(tempdir(), "cache_file.RData"))
 #' get.sylly.env(hyph.cache.file=TRUE)
+#'
+#' \dontrun{
+#' # example for setting permanent default values in an .Rprofile file
+#' options(
+#'   sylly=list(
+#'     hyph.cache.file=file.path(tempdir(), "cache_file.RData"),
+#'     lang="de"
+#'   )
+#' )
+#' # be aware that setting a permamnent default language without loading
+#' # the respective language support package might trigger errors
+#' }
 
 set.sylly.env <- function(..., validate=TRUE){
   sylly.vars <- list(...)
@@ -51,31 +66,41 @@ set.sylly.env <- function(..., validate=TRUE){
     stop(simpleError("You must at least set one (valid) parameter!"))
   } else {}
 
+  # get current settings from .Options
+  sylly_options <- getOption("sylly", list())
+
   if(!is.null(lang)){
     if(identical(lang, "")){
-      rm("lang", envir=.sylly.env)
+      sylly_options[["lang"]] <- NULL
+    } else if(is.character(lang)){
+      sylly_options[["lang"]] <- lang
     } else {
-      stopifnot(is.character(lang))
-      assign("lang", lang, envir=.sylly.env)
+      stop(simpleError("'lang' must be a character string!"))
     }
   } else {}
 
   if(!is.null(hyph.cache.file)){
     if(identical(hyph.cache.file, "")){
-      rm("hyph.cache.file", envir=.sylly.env)
+      sylly_options[["hyph.cache.file"]] <- NULL
+    } else if(is.character(hyph.cache.file)){
+      sylly_options[["hyph.cache.file"]] <- hyph.cache.file
     } else {
-      stopifnot(is.character(hyph.cache.file))
-      assign("hyph.cache.file", hyph.cache.file, envir=.sylly.env)
+      stop(simpleError("'hyph.cache.file' must be a character string!"))
     }
   } else {}
 
   if(!is.null(hyph.max.token.length)){
-    stopifnot(all(is.numeric(hyph.max.token.length), isTRUE(length(hyph.max.token.length) == 1)))
-    assign("hyph.max.token.length", hyph.max.token.length, envir=as.environment(.sylly.env))
-    # regenerate internal object with all possible patterns of subcharacters for hyphenation
-    all.patterns <- explode.letters()
-    assign("all.patterns", all.patterns, envir=as.environment(.sylly.env))
+    if(all(is.numeric(hyph.max.token.length), isTRUE(length(hyph.max.token.length) == 1))){
+      sylly_options[["hyph.max.token.length"]] <- hyph.max.token.length
+      # regenerate internal object with all possible patterns of subcharacters for hyphenation
+      all.patterns <- explode.letters()
+      assign("all.patterns", all.patterns, envir=as.environment(.sylly.env))
+    } else {
+      stop(simpleError("'hyph.max.token.length' must be a single numeric value!"))
+    }
   } else {}
+
+  options(sylly=sylly_options)
 
   return(invisible(NULL))
 }

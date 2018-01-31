@@ -18,23 +18,38 @@ To explicitly unset a value again, set it to an empty character string (e.g.,
       \code{lang=""}).}
 
 \item{validate}{Logical,
-      if \code{TRUE} given paths will be checked for actual availablity, and the function will fail if files can't be found.}
+      if \code{TRUE} given paths will be checked for actual availablity, and the function will fail if files can't be found.
+This option is currently without any effect,
+      as it does not apply to \code{hyph.cache.file} because that file will be created automatically if needed.}
 }
 \value{
 Returns an invisible \code{NULL}.
 }
 \description{
-The function \code{set.sylly.env} can be called before any of the hyphenation functions. It preserves some information
-on your current session's settings to a hidden environment.
+The function \code{set.sylly.env} can be called before any of the hyphenation functions.  It writes information
+on your current session's settings to your global \code{\link[base:.Options]{.Options}}.
 }
 \details{
-To get the contents of the hidden environment,
-      the function \code{\link[sylly:get.sylly.env]{get.sylly.env}}
-can be used.
+To get the current settings, the function \code{\link[sylly:get.sylly.env]{get.sylly.env}}
+should be used. For the most part, \code{set.sylly.env} is a convenient wrapper for
+\code{\link[base:options]{options}}. To permanently set some defaults, you could also add
+respective \code{options} calls to an \code{\link[base:.Rprofile]{.Rprofile}} file.
 }
 \examples{
 set.sylly.env(hyph.cache.file=file.path(tempdir(), "cache_file.RData"))
 get.sylly.env(hyph.cache.file=TRUE)
+
+\dontrun{
+# example for setting permanent default values in an .Rprofile file
+options(
+  sylly=list(
+    hyph.cache.file=file.path(tempdir(), "cache_file.RData"),
+    lang="de"
+  )
+)
+# be aware that setting a permamnent default language without loading
+# the respective language support package might trigger errors
+}
 }
 \seealso{
 \code{\link[sylly:get.sylly.env]{get.sylly.env}}

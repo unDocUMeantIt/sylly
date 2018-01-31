@@ -1,4 +1,4 @@
-# Copyright 2010-2017 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2010-2018 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package sylly.
 #
@@ -16,10 +16,12 @@
 # along with sylly.  If not, see <http://www.gnu.org/licenses/>.
 
 
-#' Get sylly session environment
+#' Get sylly session settings
 #'
 #' The function \code{get.sylly.env} returns information on your session environment regarding the sylly package, e.g.
 #' whether a cache file should be used, if it was set before using \code{\link[sylly:set.sylly.env]{set.sylly.env}}.
+#'
+#' For the most part, \code{get.sylly.env} is a convenient wrapper for \code{\link[base:getOption]{getOption}}.
 #'
 #' @param ... Named parameters to get from the sylly environment. Valid arguments are:
 #'   \describe{
@@ -52,11 +54,13 @@ get.sylly.env <- function(..., errorIfUnset=TRUE){
     stop(simpleError("You can only use logical values to query parameters!"))
   } else {}
 
+  # get current settings from .Options
+  sylly_options <- getOption("sylly", list())
   tt.env <- list()
 
   if(isTRUE(lang)){
-    if(exists("lang", envir=.sylly.env, inherits=FALSE)){
-      tt.env$lang <- get("lang", envir=.sylly.env)
+    if("lang" %in% names(sylly_options)){
+      tt.env[["lang"]] <- sylly_options[["lang"]]
     } else {
       if(isTRUE(errorIfUnset)){
         stop(simpleError("No language specified!"))
@@ -65,8 +69,8 @@ get.sylly.env <- function(..., errorIfUnset=TRUE){
   } else {}
 
   if(isTRUE(hyph.cache.file)){
-    if(exists("hyph.cache.file", envir=.sylly.env, inherits=FALSE)){
-      tt.env$hyph.cache.file <- get("hyph.cache.file", envir=.sylly.env)
+    if("hyph.cache.file" %in% names(sylly_options)){
+      tt.env[["hyph.cache.file"]] <- sylly_options[["hyph.cache.file"]]
     } else {
       if(isTRUE(errorIfUnset)){
         stop(simpleError("No hyphenation cache file specified!"))
@@ -75,8 +79,8 @@ get.sylly.env <- function(..., errorIfUnset=TRUE){
   } else {}
 
   if(isTRUE(hyph.max.token.length)){
-    if(exists("hyph.max.token.length", envir=.sylly.env, inherits=FALSE)){
-      tt.env$hyph.max.token.length <- get("hyph.max.token.length", envir=.sylly.env)
+    if("hyph.max.token.length" %in% names(sylly_options)){
+      tt.env[["hyph.max.token.length"]] <- sylly_options[["hyph.max.token.length"]]
     } else {
       if(isTRUE(errorIfUnset)){
         stop(simpleError("No maximum word length specified!"))

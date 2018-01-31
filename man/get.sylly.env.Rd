@@ -2,7 +2,7 @@
 % Please edit documentation in R/get.sylly.env.R
 \name{get.sylly.env}
 \alias{get.sylly.env}
-\title{Get sylly session environment}
+\title{Get sylly session settings}
 \usage{
 get.sylly.env(..., errorIfUnset = TRUE)
 }
@@ -29,6 +29,10 @@ The function \code{get.sylly.env} returns information on your session environmen
       e.g.
 whether a cache file should be used,
       if it was set before using \code{\link[sylly:set.sylly.env]{set.sylly.env}}.
+}
+\details{
+For the most part,
+      \code{get.sylly.env} is a convenient wrapper for \code{\link[base:getOption]{getOption}}.
 }
 \examples{
 set.sylly.env(hyph.cache.file=file.path(tempdir(), "cache_file.RData"))
