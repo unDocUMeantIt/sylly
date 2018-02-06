@@ -24,3 +24,13 @@ close(header_con)
 ## ---- eval=FALSE---------------------------------------------------------
 #  hyph.txt.en <- correct.hyph(hyph.txt.en, word="primary", hyphen="pri-ma-ry")
 
+## ---- eval=FALSE---------------------------------------------------------
+#  set.sylly.env(hyph.cache.file="~/sylly_cache.Rdata")
+
+## ---- eval=FALSE---------------------------------------------------------
+#  options(
+#    sylly=list(
+#      hyph.cache.file="~/sylly_cache.RData"
+#    )
+#  )
+

@@ -1,6 +1,6 @@
 ChangeLog for package sylly
 
-changes in version 0.1-5 (2018-01-31)
+changes in version 0.1-5 (2018-02-06)
 unreleased:
   - this release is under development
 changed:
@@ -8,7 +8,7 @@ changed:
     are no longer stored in an internal environment but the global .Options;
     this also allows for setting defaults in an .Rprofile file using options()
   - vignette is now in RMarkdown/HTML format; the SWeave/PDF version was
-    dropped
+    dropped; it was also updated and has a new section on caching
 added:
   - new functions available.sylly.lang() and install.sylly.lang() to
     comfortably install language packages

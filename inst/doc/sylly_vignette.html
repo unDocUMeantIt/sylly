@@ -12,7 +12,7 @@
 
 <meta name="author" content="m.eik michalke" />
 
-<meta name="date" content="2018-01-31" />
+<meta name="date" content="2018-02-06" />
 
 <title>Using the sylly Package for Hyphenation and Syllable Count</title>
 
@@ -71,7 +71,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Using the sylly Package for Hyphenation and Syllable Count</h1>
 <h4 class="author"><em>m.eik michalke</em></h4>
-<h4 class="date"><em>2018-01-31</em></h4>
+<h4 class="date"><em>2018-02-06</em></h4>
 
 
 <div id="TOC">
@@ -81,27 +81,28 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li><a href="#support-new-languages">Support new languages</a></li>
 <li><a href="#correcting-errors">Correcting errors</a></li>
+<li><a href="#caching-the-hyphenation-dictionary">Caching the hyphenation dictionary</a></li>
 <li><a href="#references">References</a></li>
 </ul>
 </div>
 
 <div id="hyphenation" class="section level1">
 <h1>Hyphenation</h1>
-<p>The method <code>hyphen()</code> takes vectors of character strings (i.e., single words) and applies an hyphenation algorithm <span class="citation">(Liang, 1983)</span> to each word. This algorithm was originally developed for automatic word hyphenation in {}, and is gracefully misused here to fulfill a slightly different service.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
-<p><code>hyphen()</code> needs a set of hyphenation patterns for each language it should analyze. If you’re lucky, there’s already a pre-built package<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> for your language of interest that you only need to install and load. These packages are called <code>sylly.XX</code>, where <code>XX</code> is a two letter abbreviation for the particular language. For instance, <code>sylly.de</code> adds support for German, whereas <code>sylly.en</code> adds support for English:</p>
+<p>The method <code>hyphen()</code> takes vectors of character strings (i.e., single words) and applies an hyphenation algorithm <span class="citation">(Liang, 1983)</span> to each word. This algorithm was originally developed for automatic word hyphenation in <span class="math inline">\(\LaTeX\)</span>, and is gracefully misused here to be of a slightly different service.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+<p><code>hyphen()</code> needs a set of hyphenation patterns for each language it should analyze. If you’re lucky, there’s already a <a href="https://undocumeantit.github.io/repos">pre-built package in the official <code>l10n</code> repository</a> for your language of interest that you only need to install and load. These packages are called <code>sylly.XX</code>, where <code>XX</code> is a two letter abbreviation for the particular language. For instance, <code>sylly.de</code> adds support for German, whereas <code>sylly.en</code> adds support for English:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sampleText &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;This&quot;</span>, <span class="st">&quot;is&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;rather&quot;</span>, <span class="st">&quot;stupid&quot;</span>, <span class="st">&quot;demonstration&quot;</span>)
 <span class="kw">library</span>(sylly.en)
 hyph.txt.en &lt;-<span class="st"> </span><span class="kw">hyphen</span>(sampleText, <span class="dt">hyph.pattern=</span><span class="st">&quot;en&quot;</span>)</code></pre></div>
 <div id="alternative-output-formats" class="section level2">
 <h2>Alternative output formats</h2>
 <p>The method has a parameter called <code>as</code> which defines the object class of the returned results. It defaults to the S4 class <code>kRp.hyphen</code>. In addition to the hyphenated tokens, it includes various statistics and metadata, like the language of the text. These objects were designed to integrate seamlessly with the methods and functions of the <code>koRpus</code> package.</p>
-<p>When all you need is the actual data frame with hyphenated text, you could call <code>hyphenText()</code> on the <code>kRp.hyphen</code> object. But you could also set <code>as=&quot;data.frame&quot;</code> accordinly in the first place. Alternatively, using te shortcut method <code>hyphen\_df()</code> instead of <code>hyphen()</code> will also return a simple data frame.</p>
-<p>If even you’re only interested in the numeric results, you can set <code>as=&quot;numeric&quot;</code> (or <code>hyphen\_c()</code>), which will strip down the results to just the numeric vector of syllables.</p>
+<p>When all you need is the actual data frame with hyphenated text, you could call <code>hyphenText()</code> on the <code>kRp.hyphen</code> object. But you could also set <code>as=&quot;data.frame&quot;</code> accordinly in the first place. Alternatively, using the shortcut method <code>hyphen_df()</code> instead of <code>hyphen()</code> will also return a simple data frame.</p>
+<p>If you’re only even interested in the numeric results, you can set <code>as=&quot;numeric&quot;</code> (or use <code>hyphen_c()</code>), which will strip down the results to just the numeric vector of syllables.</p>
 </div>
 </div>
 <div id="support-new-languages" class="section level1">
 <h1>Support new languages</h1>
-<p>Should there be no package for your language, you can import pattern files from the <span class="math inline">\(\LaTeX\)</span> sources<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> and use the result as <code>hyph.pattern</code>:<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></p>
+<p>Should there be no package for your language, you can import pattern files from the <span class="math inline">\(\LaTeX\)</span> sources<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> and use the result as <code>hyph.pattern</code>:<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">url.is.pattern &lt;-<span class="st"> </span><span class="kw">url</span>(<span class="st">&quot;http://tug.ctan.org/tex-archive/language/hyph-</span>
 <span class="st">utf8/tex/generic/hyph-utf8/patterns/txt/hyph-is.pat.txt&quot;</span>)
 hyph.is &lt;-<span class="st"> </span><span class="kw">read.hyph.pat</span>(url.is.pattern, <span class="dt">lang=</span><span class="st">&quot;is&quot;</span>)
@@ -111,7 +112,7 @@ hyph.txt.is &lt;-<span class="st"> </span><span class="kw">hyphen</span>(iceland
 <div id="correcting-errors" class="section level1">
 <h1>Correcting errors</h1>
 <p><code>hyphen()</code> might not produce perfect results. As a rule of thumb, if in doubt it seems to behave rather conservative, that is, is might underestimate the real number of syllables in a text.</p>
-<p>Depending on your use case, the more accurate the end results should be, the less you should rely on automatic hyphenation alone. But it sure is a good starting point, for there is a function called <code>correct.hyph()</code> to help you clean these results of errors later on. The most comfortable way to do this is to call <code>hyphenText(hyph.txt.en)</code>, which will get you a data frame with two colums, <code>word</code> (the hyphenated words) and <code>syll</code> (the number of syllables), in a spread sheet editor:<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a></p>
+<p>Depending on your use case, the more accurate the end results should be, the less you should rely on automatic hyphenation alone. But it sure is a good starting point, for there is a method called <code>correct.hyph()</code> to help you clean these results of errors later on. The most comfortable way to do this is to call <code>hyphenText(hyph.txt.en)</code>, which will get you a data frame with two colums, <code>word</code> (the hyphenated words) and <code>syll</code> (the number of syllables), and open it in a spread sheet editor:<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hyphenText</span>(hyph.txt.en)</code></pre></div>
 <pre><code>##    syll     word
 [...]
@@ -121,9 +122,9 @@ hyph.txt.is &lt;-<span class="st"> </span><span class="kw">hyphen</span>(iceland
 ## 23    2 de-fense
 ## 24    1      and
 [...]</code></pre>
-<p>You can then manually correct wrong hyphenations by removing or inserting ``-’’ as hyphenation indicators, and call the function without further arguments, which will cause it to recount all syllables:</p>
+<p>You can then manually correct wrong hyphenations by removing or inserting ``-’’ as hyphenation indicators, and call the method on the corrected object without further arguments, which will cause it to recount all syllables and update the statistics:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hyph.txt.en &lt;-<span class="st"> </span><span class="kw">correct.hyph</span>(hyph.txt.en)</code></pre></div>
-<p>Of course the function can also be used to alter entries on its own:</p>
+<p>The method can also be used to alter entries directly:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hyph.txt.en &lt;-<span class="st"> </span><span class="kw">correct.hyph</span>(hyph.txt.en, <span class="dt">word=</span><span class="st">&quot;primary&quot;</span>, <span class="dt">hyphen=</span><span class="st">&quot;pri-ma-ry&quot;</span>)</code></pre></div>
 <pre><code>## Changed
 ## 
@@ -134,6 +135,20 @@ hyph.txt.is &lt;-<span class="st"> </span><span class="kw">hyphen</span>(iceland
 ## 
 ##    syll      word
 ## 22    3 pri-ma-ry</code></pre>
+<p>Once you have corrected the hyphenation of a token, <code>sylly</code> will also update its cache (see below) and use the corrected format from now on.</p>
+</div>
+<div id="caching-the-hyphenation-dictionary" class="section level1">
+<h1>Caching the hyphenation dictionary</h1>
+<p>By default, <code>hyphen()</code> caches the results of each token it analyzed internally for the running R session, and also checks its cache for each token it is called on. This speeds up the process, because it only has to split the token and look up matching patterns once. If for some reason you don’t want this (e.g., if it uses to much memory), you can turn caching off by setting <code>hyphen(..., cache=FALSE)</code>.</p>
+<p>If on the other hand you would like to preserve and re-use the cache, you can also configure <code>sylly</code> to write it to a file. To do so, you sould use <code>set.sylly.env()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.sylly.env</span>(<span class="dt">hyph.cache.file=</span><span class="st">&quot;~/sylly_cache.Rdata&quot;</span>)</code></pre></div>
+<p>The file will be created dynamically the first time it is needed, should it not exist already. You can use the same cache file for multiple languages. Furthermore, since most setting done with <code>set.sylly.env()</code> are stored in you session’s <code>options()</code>, you can also define this file permanently by adding somethin like the following to your <code>.Rprofile</code> file:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(
+  <span class="dt">sylly=</span><span class="kw">list</span>(
+    <span class="dt">hyph.cache.file=</span><span class="st">&quot;~/sylly_cache.RData&quot;</span>
+  )
+)</code></pre></div>
+<p>This will cause <code>sylly</code> to always use this cache file by default. One of the main benefits of this, next to boosting speed, is the fact that corrections you have done in the past will be preserved for future sessions. In other words, if you fix incorrect hyphenation results from time to time, the overall accuracy of your results will improve constantly.</p>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1>References</h1>
@@ -147,10 +162,9 @@ hyph.txt.is &lt;-<span class="st"> </span><span class="kw">hyphen</span>(iceland
 <hr />
 <ol>
 <li id="fn1"><p>The <code>hyphen()</code> method was originally implemented as part of the <code>koRpus</code> package, but was later split off into its own package, which is <code>sylly</code>. <code>koRpus</code> adds further <code>hyphen()</code> methods so they can be used on tokenized and POS tagged objects directly.<a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>Officially supported packages can be found in the <code>l10n</code> repository: <a href="https://undocumeantit.github.io/repos" class="uri">https://undocumeantit.github.io/repos</a><a href="#fnref2">↩</a></p></li>
-<li id="fn3"><p>Look for <code>*.pat.txt</code> files at <a href="http://tug.ctan.org/tex-archive/language/hyph-utf8/tex/generic/hyph-utf8/patterns/txt/" class="uri">http://tug.ctan.org/tex-archive/language/hyph-utf8/tex/generic/hyph-utf8/patterns/txt/</a><a href="#fnref3">↩</a></p></li>
-<li id="fn4"><p>You can also use the private method <code>sylly:::sylly\_langpack()</code> to generate an R package skeleton for this language, but it requires you to look at the <code>sylly</code> source code, as the commented code is the only documentation. The results of this method are optimized to be packaged with <code>roxyPackage</code> (<a href="https://github.com/unDocUMeantIt/roxyPackage" class="uri">https://github.com/unDocUMeantIt/roxyPackage</a>). In this combination, generating new language packages can almost be automatized.<a href="#fnref4">↩</a></p></li>
-<li id="fn5"><p>For example, this can be comfortably done with RKWard: <a href="http://rkward.kde.org" class="uri">http://rkward.kde.org</a><a href="#fnref5">↩</a></p></li>
+<li id="fn2"><p>Look for <code>*.pat.txt</code> files at <a href="http://tug.ctan.org/tex-archive/language/hyph-utf8/tex/generic/hyph-utf8/patterns/txt/" class="uri">http://tug.ctan.org/tex-archive/language/hyph-utf8/tex/generic/hyph-utf8/patterns/txt/</a><a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>You can also use the private method <code>sylly:::sylly\_langpack()</code> to generate an R package skeleton for this language, but it requires you to look at the <code>sylly</code> source code, as the commented code is the only documentation. The results of this method are optimized to be packaged with <code>roxyPackage</code> (<a href="https://github.com/unDocUMeantIt/roxyPackage" class="uri">https://github.com/unDocUMeantIt/roxyPackage</a>). In this combination, generating new language packages can almost be automatized.<a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p>For example, this can be comfortably done with RKWard: <a href="http://rkward.kde.org" class="uri">http://rkward.kde.org</a><a href="#fnref4">↩</a></p></li>
 </ol>
 </div>
 
