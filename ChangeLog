@@ -1,8 +1,10 @@
 ChangeLog for package sylly
 
-changes in version 0.1-5 (2018-02-06)
+changes in version 0.1-5 (2018-02-19)
 unreleased:
   - this release is under development
+fixed:
+  - sylly:::sylly_langpack(): removed obsolete 'flattr_user' attribute
 changed:
   - session settings done with set.sylly.env() or queried by get.sylly.env()
     are no longer stored in an internal environment but the global .Options;

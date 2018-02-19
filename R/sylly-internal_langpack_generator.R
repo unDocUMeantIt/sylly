@@ -1,4 +1,4 @@
-# Copyright 2017 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2017-2018 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package sylly.
 #
@@ -242,15 +242,12 @@ doc_readme <- function(
   author="Meik Michalke",
   email="meik.michalke@hhu.de",
   year=format(Sys.Date(), "%Y"),
-  flattr_user="m.eik",
   github_user="unDocUMeantIt",
   dir=NULL,  # if not NULL, writes results directly to dir/README.md
   overwrite=FALSE
 ){
   doc <- paste0(
     "# sylly.", lang, "\n\n",
-    "[![Flattr this git repo](https://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=", flattr_user,
-    "&url=https://github.com/", github_user, "/sylly.", lang, "&title=sylly.", lang, "&language=en_GB&tags=github&category=software)\n\n",
     "Adds support for the ", lang_name, " language to the [sylly](https://github.com/unDocUMeantIt/sylly) package.\n",
     "Due to some restrictions on CRAN, the full package sources are only available from the\n",
     "[project homepage](http://reaktanz.de/?c=hacking&s=koRpus).\n\n",
@@ -352,7 +349,6 @@ sylly_langpack_skeleton <- function(
   year=format(Sys.Date(), "%Y"),
   date=format(Sys.Date(), "%Y-%m-%d"),
   version="0.1-1",
-  flattr_user="m.eik",
   github_user="unDocUMeantIt",
   example=c("This", "is", "a", "rather", "stupid", "demonstration"),
   dir=NULL,  # if not NULL, writes results directly to dir
@@ -408,7 +404,6 @@ sylly_langpack_skeleton <- function(
     author=author,
     email=email,
     year=year,
-    flattr_user=flattr_user,
     github_user=github_user,
     dir=main_dir,
     overwrite=overwrite
@@ -455,7 +450,6 @@ setMethod("sylly_langpack", signature(hyph.pattern="kRp.hyph.pat"),
     year=format(Sys.Date(), "%Y"),
     date=format(Sys.Date(), "%Y-%m-%d"),
     version="0.1-1",
-    flattr_user="m.eik",
     github_user="unDocUMeantIt",
     example=c("This", "is", "a", "rather", "stupid", "demonstration"),
     overwrite=FALSE
@@ -474,7 +468,6 @@ setMethod("sylly_langpack", signature(hyph.pattern="kRp.hyph.pat"),
       year=year,
       date=date,
       version=version,
-      flattr_user=flattr_user,
       github_user=github_user,
       example=example,
       dir=dir,
