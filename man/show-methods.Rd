@@ -12,7 +12,7 @@
 \item{object}{An object of class \code{kRp.hyphen}.}
 }
 \description{
-Show method for S4 objects of class \code{\link[sylly]{kRp.hyphen-class}}.
+Show method for S4 objects of class \code{\link[sylly:kRp.hyphen-class]{kRp.hyphen}}.
 }
 \examples{
 \dontrun{
@@ -20,6 +20,6 @@ Show method for S4 objects of class \code{\link[sylly]{kRp.hyphen-class}}.
 }
 }
 \seealso{
-\code{\link[sylly]{kRp.hyphen-class}}
+\code{\link[sylly:kRp.hyphen-class]{kRp.hyphen}}
 }
 \keyword{methods}

@@ -13,7 +13,7 @@ correct.hyph(obj, word = NULL, hyphen = NULL, cache = TRUE)
   cache = TRUE)
 }
 \arguments{
-\item{obj}{An object of class \code{\link[sylly]{kRp.hyphen-class}}.}
+\item{obj}{An object of class \code{\link[sylly:kRp.hyphen-class]{kRp.hyphen}}.}
 
 \item{word}{A character string,
       the (possibly incorrectly hyphenated) \code{word} entry to be replaced with \code{hyphen}.}
@@ -30,7 +30,7 @@ Existing entries for the same word will be replaced.}
 An object of the same class as \code{obj}.
 }
 \description{
-The method \code{correct.hyph} can be used to alter objects of class \code{\link[sylly]{kRp.hyphen-class}}.
+The method \code{correct.hyph} can be used to alter objects of class \code{\link[sylly:kRp.hyphen-class]{kRp.hyphen}}.
 }
 \details{
 Although hyphenation should turn out to be rather accurate,

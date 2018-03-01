@@ -18,7 +18,7 @@ you have a really good reason to do otherwise,
       your pattern files should all be UTF-8 encoded.}
 }
 \value{
-An object of class \code{\link[sylly:kRp.hyph.pat-class]{kRp.hyph.pat-class}}.
+An object of class \code{\link[sylly:kRp.hyph.pat-class]{kRp.hyph.pat}}.
 }
 \description{
 This function reads hyphenation pattern files,

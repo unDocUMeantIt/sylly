@@ -18,11 +18,11 @@
 
 #' Summary method for sylly objects
 #'
-#' Summary method for S4 objects of class \code{\link[sylly]{kRp.hyphen-class}}.
+#' Summary method for S4 objects of class \code{\link[sylly:kRp.hyphen-class]{kRp.hyphen}}.
 #'
 #' @param object An object of class \code{kRp.hyphen}.
 #' @seealso
-#'    \code{\link[sylly]{kRp.hyphen-class}}
+#'    \code{\link[sylly:kRp.hyphen-class]{kRp.hyphen}}
 #' @keywords methods
 #' @examples
 #' \dontrun{

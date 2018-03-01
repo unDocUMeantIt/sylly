@@ -1,4 +1,4 @@
-# Copyright 2010-2017 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2010-2018 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package sylly.
 #
@@ -38,13 +38,13 @@
 #' @param word A character string, a full word to hyphenate using the given pattern set.
 #' @param min.length Integer, number of letters a word must have for considering a hyphenation.
 #' @param rm.hyph Logical, whether appearing hyphens in words should be removed before pattern matching.
-#' @return If all action arguments are \code{NULL}, returns an object of class \code{\link[sylly:kRp.hyph.pat-class]{kRp.hyph.pat-class}}.
+#' @return If all action arguments are \code{NULL}, returns an object of class \code{\link[sylly:kRp.hyph.pat-class]{kRp.hyph.pat}}.
 #'    The same is true if \code{set} or \code{rm} are set and \code{hyph.pattern} is itself an object of that class; if you refer to a language
 #'    instead, pattern changes will be done internally for the running session and take effect immediately.
 #'    The \code{get} argument will return a caracter vector, and \code{word} a data frame.
 #' @keywords hyphenation
 #' @seealso
-#'    \code{\link[sylly:kRp.hyph.pat-class]{kRp.hyph.pat-class}},
+#'    \code{\link[sylly:kRp.hyph.pat-class]{kRp.hyph.pat}},
 #'    \code{\link[sylly:hyphen]{hyphen}}
 # @author m.eik michalke \email{meik.michalke@@hhu.de}
 #' @references

@@ -30,7 +30,7 @@ manage.hyph.pat(hyph.pattern, get = NULL, set = NULL, rm = NULL,
 }
 \value{
 If all action arguments are \code{NULL},
-      returns an object of class \code{\link[sylly:kRp.hyph.pat-class]{kRp.hyph.pat-class}}.
+      returns an object of class \code{\link[sylly:kRp.hyph.pat-class]{kRp.hyph.pat}}.
    The same is true if \code{set} or \code{rm} are set and \code{hyph.pattern} is itself an object of that class; if you refer to a language
    instead,
       pattern changes will be done internally for the running session and take effect immediately.
@@ -64,7 +64,7 @@ manage.hyph.pat("en", rm="rticl")
 [1] \url{http://tug.ctan.org/tex-archive/language/hyph-utf8/tex/generic/hyph-utf8/patterns/txt/}
 }
 \seealso{
-\code{\link[sylly:kRp.hyph.pat-class]{kRp.hyph.pat-class}},
+\code{\link[sylly:kRp.hyph.pat-class]{kRp.hyph.pat}},
    \code{\link[sylly:hyphen]{hyphen}}
 }
 \keyword{hyphenation}

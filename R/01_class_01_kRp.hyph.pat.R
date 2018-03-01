@@ -25,6 +25,12 @@
 #' function \code{sylly:::koRpus2sylly} which take the path to the old file as its first argument. Be aware that
 #' calling this function will overwrite the old file in-place, so you should make a backup first!
 #'
+#' @section Contructor function:
+#' Should you need to manually generate objects of this class (which should rarely be the case), the contructor function 
+#' \code{kRp_hyph_pat(...)} can be used instead of
+#' \code{new("kRp.hyph.pat", ...)}. Whenever possible, stick to
+#' \code{\link[sylly:read.hyph.pat]{read.hyph.pat}}.
+#' 
 #' @slot lang A character string, naming the language that is assumed for the patterns in this object
 #' @slot pattern A matrix with three colums:
 #'    \describe{
@@ -33,7 +39,7 @@
 #'      \item{\code{nums}:}{The hyphenation number code for the pattern.}
 #'    }
 #' @name kRp.hyph.pat,-class
-#' @aliases kRp.hyph.pat,-class kRp.hyph.pat-class
+#' @aliases kRp.hyph.pat-class
 #' @import methods
 #' @keywords classes
 # @author m.eik michalke \email{meik.michalke@@hhu.de}

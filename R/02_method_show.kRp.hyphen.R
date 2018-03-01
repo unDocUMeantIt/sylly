@@ -18,12 +18,12 @@
 
 #' Show method for sylly objects
 #'
-#' Show method for S4 objects of class \code{\link[sylly]{kRp.hyphen-class}}.
+#' Show method for S4 objects of class \code{\link[sylly:kRp.hyphen-class]{kRp.hyphen}}.
 #'
 #' @param object An object of class \code{kRp.hyphen}.
 #' @aliases show show,kRp.hyphen-method
 #' @seealso
-#'    \code{\link[sylly]{kRp.hyphen-class}}
+#'    \code{\link[sylly:kRp.hyphen-class]{kRp.hyphen}}
 #' @keywords methods
 #' @export
 #' @docType methods

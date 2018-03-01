@@ -33,7 +33,8 @@ hyphen_c(words, ...)
 
 \item{...}{Only used for the method generic.}
 
-\item{hyph.pattern}{Either an object of class \code{\link[sylly]{kRp.hyph.pat-class}}, or
+\item{hyph.pattern}{Either an object of class \code{\link[sylly:kRp.hyph.pat-class]{kRp.hyph.pat}},
+      or
 a valid character string naming the language of the patterns to be used (must already be loaded,
       see details).}
 
@@ -62,7 +63,7 @@ respectively. For the latter two options,
       you can alternatively use the shortcut methods \code{hyphen_df} or  \code{hyphen_c}.}
 }
 \value{
-An object of class \code{\link[sylly]{kRp.hyphen-class}},
+An object of class \code{\link[sylly:kRp.hyphen-class]{kRp.hyphen}},
       \code{data.frame} or a numeric vector, depending on the value
    of the \code{as} argument.
 }

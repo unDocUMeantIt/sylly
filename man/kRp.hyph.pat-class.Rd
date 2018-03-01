@@ -33,4 +33,13 @@ calling this function will overwrite the old file in-place,
 }}
 }}
 
+\section{Contructor function}{
+
+Should you need to manually generate objects of this class (which should rarely be the case),
+      the contructor function 
+\code{kRp_hyph_pat(...)} can be used instead of
+\code{new("kRp.hyph.pat", ...)}. Whenever possible, stick to
+\code{\link[sylly:read.hyph.pat]{read.hyph.pat}}.
+}
+
 \keyword{classes}

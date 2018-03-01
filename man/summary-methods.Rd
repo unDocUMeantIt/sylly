@@ -12,7 +12,7 @@
 \item{object}{An object of class \code{kRp.hyphen}.}
 }
 \description{
-Summary method for S4 objects of class \code{\link[sylly]{kRp.hyphen-class}}.
+Summary method for S4 objects of class \code{\link[sylly:kRp.hyphen-class]{kRp.hyphen}}.
 }
 \examples{
 \dontrun{
@@ -20,6 +20,6 @@ summary(hyphen(tagged.text))
 }
 }
 \seealso{
-\code{\link[sylly]{kRp.hyphen-class}}
+\code{\link[sylly:kRp.hyphen-class]{kRp.hyphen}}
 }
 \keyword{methods}

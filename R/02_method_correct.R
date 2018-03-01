@@ -18,7 +18,7 @@
 
 #' Correct kRp.hyphen objects
 #' 
-#' The method \code{correct.hyph} can be used to alter objects of class \code{\link[sylly]{kRp.hyphen-class}}.
+#' The method \code{correct.hyph} can be used to alter objects of class \code{\link[sylly:kRp.hyphen-class]{kRp.hyphen}}.
 #'
 #' Although hyphenation should turn out to be rather accurate, the algorithm does ususally produce
 #' some errors. If you want to correct for these flaws, this method can be of help, because it might prevent you from
@@ -32,7 +32,7 @@
 #' for each word, by counting the hyphenation marks (and adding 1 to the number). This can be usefull if you changed hyphenation
 #' some other way, e.g. in a spreadsheet GUI, but don't want to have to correct the syllable count yourself as well.
 #'
-#' @param obj An object of class \code{\link[sylly]{kRp.hyphen-class}}.
+#' @param obj An object of class \code{\link[sylly:kRp.hyphen-class]{kRp.hyphen}}.
 #' @param word A character string, the (possibly incorrectly hyphenated) \code{word} entry to be replaced with \code{hyphen}.
 #' @param hyphen A character string, the new manually hyphenated version of \code{word}. Mustn't contain
 #'    anything other than characters of \code{word} plus the hyphenation mark \code{"-"}.

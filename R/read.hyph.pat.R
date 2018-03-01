@@ -1,4 +1,4 @@
-# Copyright 2010-2017 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2010-2018 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package sylly.
 #
@@ -32,7 +32,7 @@
 #'    be used with (e.g. "es" for Spanish).
 #' @param fileEncoding A character string defining the character encoding of the file to be read. Unless
 #'    you have a really good reason to do otherwise, your pattern files should all be UTF-8 encoded.
-#' @return An object of class \code{\link[sylly:kRp.hyph.pat-class]{kRp.hyph.pat-class}}.
+#' @return An object of class \code{\link[sylly:kRp.hyph.pat-class]{kRp.hyph.pat}}.
 #' @keywords hyphenation
 #' @seealso
 #'    \code{\link[sylly:hyphen]{hyphen}},
