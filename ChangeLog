@@ -15,6 +15,8 @@ changed:
 added:
   - new functions available.sylly.lang() and install.sylly.lang() to
     comfortably install language packages
+  - new class object contructors kRp_hyphen() and kRp_hyph_pat() can be used
+    instead of new("kRp.hyphen", ...) etc.
 
 changes in version 0.1-4 (2018-01-06)
 fixed:

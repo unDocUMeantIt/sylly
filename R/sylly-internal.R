@@ -1,4 +1,4 @@
-# Copyright 2010-2017 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2010-2018 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package sylly.
 #
@@ -595,7 +595,7 @@ kRp.hyphen.calc <- function(
   } else {}
 
   if(identical(as, "kRp.hyphen")){
-    results <- new("kRp.hyphen", lang=lang, desc=desc.stat.res, hyphen=hyph.df[c("syll","word")])
+    results <- kRp_hyphen(lang=lang, desc=desc.stat.res, hyphen=hyph.df[c("syll","word")])
   } else if(identical(as, "data.frame")){
     results <- hyph.df[c("syll","word")]
   } else if(identical(as, "numeric")){
@@ -628,7 +628,7 @@ optimize.hyph.pattern <- function(hyph.pat){
     nm=pattern.matrix[,"char"]
   )
   # "kRp.hyph.pat.env" is an internal class, defined in 01_class_01_kRp.hyph.pat.R
-  new.hyph.pat <- new("kRp.hyph.pat.env",
+  new.hyph.pat <- kRp_hyph_pat_env(
     lang=slot(hyph.pat, "lang"),
     min.pat=min(nchar(pattern.matrix[,"char"])),
     max.pat=max(nchar(pattern.matrix[,"char"])),

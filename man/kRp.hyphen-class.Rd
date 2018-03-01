@@ -3,6 +3,7 @@
 \docType{class}
 \name{kRp.hyphen,-class}
 \alias{kRp.hyphen,-class}
+\alias{kRp_hyphen}
 \alias{kRp.hyphen-class}
 \title{S4 Class kRp.hyphen}
 \description{

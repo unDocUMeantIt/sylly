@@ -4,7 +4,7 @@
 #' Package: \tab sylly\cr
 #' Type: \tab Package\cr
 #' Version: \tab 0.1-5\cr
-#' Date: \tab 2018-02-06\cr
+#' Date: \tab 2018-03-01\cr
 #' Depends: \tab R (>= 3.0.0)\cr
 #' Encoding: \tab UTF-8\cr
 #' License: \tab GPL (>= 3)\cr

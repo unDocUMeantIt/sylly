@@ -1,4 +1,4 @@
-# Copyright 2010-2017 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2010-2018 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package sylly.
 #
@@ -31,10 +31,11 @@
 #' @import methods
 #' @keywords classes
 # @author m.eik michalke \email{meik.michalke@@hhu.de}
-#' @export
+#' @export kRp_hyphen
+#' @exportClass kRp.hyphen
 #' @rdname kRp.hyphen-class
 
-setClass("kRp.hyphen",
+kRp_hyphen <- setClass("kRp.hyphen",
     representation=representation(
     lang="character",
     desc="list",

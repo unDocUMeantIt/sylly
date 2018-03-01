@@ -72,7 +72,7 @@ read.hyph.pat <- function(file, lang, fileEncoding="UTF-8"){
 
   hyphen.pars <- cbind(orig=hyphen.raw, char=hyphen.char, nums=hyphen.nums)
 
-  result <- new("kRp.hyph.pat", lang=lang, pattern=hyphen.pars)
+  result <- kRp_hyph_pat(lang=lang, pattern=hyphen.pars)
 
   return(result)
 }

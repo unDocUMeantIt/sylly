@@ -3,6 +3,7 @@
 \docType{class}
 \name{kRp.hyph.pat,-class}
 \alias{kRp.hyph.pat,-class}
+\alias{kRp_hyph_pat}
 \alias{kRp.hyph.pat-class}
 \title{S4 Class kRp.hyph.pat}
 \description{
