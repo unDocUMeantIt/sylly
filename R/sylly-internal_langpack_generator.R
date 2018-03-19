@@ -213,11 +213,9 @@ doc_data <- function(
     "#'\n",
     "#' [2] \\url{http://www.ctan.org/tex-archive/macros/latex/base/lppl.txt}\n",
     "#' @examples\n",
-    "#' \\dontrun{\n",
     "#' library(sylly.", lang, ")\n",
     "#' sampleText <- c(\"", paste0(example, collapse="\", \""),"\")\n",
     "#' hyphen(sampleText, hyph.pattern=\"", lang, "\")\n",
-    "#' }\n",
     "NULL\n"
   )
   

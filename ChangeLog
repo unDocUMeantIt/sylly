@@ -12,6 +12,7 @@ changed:
   - vignette is now in RMarkdown/HTML format; the SWeave/PDF version was
     dropped; it was also updated and has a new section on caching
   - sylly:::sylly_langpack(): updated the README.md template
+  - sylly:::sylly_langpack(): removed "\dontrun{}" from generated example section
   - in the docs, improved the link format for classes, omitting the "-class"
     suffix
 added:
