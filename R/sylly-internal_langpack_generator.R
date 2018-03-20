@@ -109,7 +109,7 @@ doc_hyph_support <- function(
     "#' \n",
     "#' This function adds support for ", lang_name, " to the sylly package. You should not\n",
     "#' need to call it manually, as that is done automatically when this package is\n",
-    "#' loaded.\n",
+    "#' being loaded.\n",
     "#' \n",
     "#' In particular, a new set of hyphenation patterns is being added (see \\code{\\link{hyph.", lang, "}}).\n",
     "#' To use the patterns with \\code{\\link[sylly:hyphen]{hyphen}}, simply use the abbreviation:\n",
