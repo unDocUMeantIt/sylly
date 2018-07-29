@@ -9,14 +9,24 @@ Homepage: https://reaktanz.de/?c=hacking&s=sylly
 Package: r-other-reaktanz-sylly
 Architecture: all
 Section: gnu-r
-Depends: r-base-core (>= 3.4.0)
-Description: GNU R package "Hyphenation and Syllable Counting for Text Analysis"
+Depends: r-base-core (>= 3.5.0), r-api-3.5
+Description: GNU R package "Hyphenation and Syllable Counting for Text
+ Analysis"
  .
- Provides the hyphenation algorithm used for 'TeX'/'LaTeX' and similar software, as proposed by Liang (1983, <https://tug.org/docs/liang/>). Mainly contains the function hyphen()
- to be used for hyphenation/syllable counting of text objects. It was originally developed for and part of the 'koRpus' package, but later released as a separate package so it's
- lighter to have this particular functionality available for other packages. Support for various languages needs be added on-the-fly or by plugin packages
- (<https://undocumeantit.github.io/repos>); this package does not include any language specific data. Due to some restrictions on CRAN, the full package sources are only available
- from the project homepage. To ask for help, report bugs, request features, or discuss the development of the package, please subscribe to the koRpus-dev mailing list
- (<http://korpusml.reaktanz.de>).
+ Provides the hyphenation algorithm used for 'TeX'/'LaTeX' and similar
+ software, as proposed by Liang (1983, <https://tug.org/docs/liang/>).
+ Mainly contains the function hyphen() to be used for
+ hyphenation/syllable counting of text objects. It was originally
+ developed for and part of the 'koRpus' package, but later released as
+ a separate package so it's lighter to have this particular
+ functionality available for other packages. Support for various
+ languages needs be added on-the-fly or by plugin packages
+ (<https://undocumeantit.github.io/repos>); this package does not
+ include any language specific data. Due to some restrictions on CRAN,
+ the full package sources are only available from the project homepage.
+ To ask for help, report bugs, request features, or discuss the
+ development of the package, please subscribe to the koRpus-dev mailing
+ list (<http://korpusml.reaktanz.de>).
 Homepage: https://reaktanz.de/?c=hacking&s=sylly
-Suggests: r-cran-testthat, r-cran-sylly.de, r-cran-sylly.en, r-cran-sylly.es
+Suggests: r-cran-testthat, r-cran-knitr, r-cran-rmarkdown,
+ r-cran-sylly.de, r-cran-sylly.en, r-cran-sylly.es

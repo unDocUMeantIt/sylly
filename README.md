@@ -1,7 +1,5 @@
 # sylly
 
-[![Flattr this git repo](https://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=m.eik&url=https://github.com/unDocUMeantIt/sylly&title=sylly&language=en_GB&tags=github&category=software)
-
 Provides the hyphenation algorithm used for 'TeX'/'LaTeX' and similar software, as proposed
 by [Liang (1983)](https://tug.org/docs/liang/). Mainly contains the function 'hyphen()' to
 be used for hyphenation/syllable counting of text objects. It was originally developed

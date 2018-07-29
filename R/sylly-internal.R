@@ -771,12 +771,13 @@ check.file <- function(filename, mode="exist", stopOnFail=TRUE){
 # entries named "available", "installed", "loaded", and "title"
 # availabe: also check for all available packages in 'repos'
 # available.only: omit all installed packages which cannot be found in 'repos'
+#' @importFrom utils available.packages packageDescription
 check_lang_packages <- function(available=FALSE, repos="https://undocumeantit.github.io/repos/l10n/", available.only=FALSE, pattern="^sylly\\.[[:alpha:]]+$"){
   ### this function should be kept close to identical to the respective function
   ### in the 'sylly' package, except for the pattern
   result <- list()
   if(isTRUE(available)){
-    available_packages <- available.packages(repos=repos)
+    available_packages <- utils::available.packages(repos=repos)
     available_koRpus_lang <- grepl(pattern, available_packages[,"Package"])
     supported_lang <- unique(available_packages[available_koRpus_lang,"Package"])
   } else {
@@ -805,7 +806,7 @@ check_lang_packages <- function(available=FALSE, repos="https://undocumeantit.gi
       if(this_package %in% unique(installed_packages[installed_koRpus_lang])){
         result[[this_package]][["installed"]] <- TRUE
         this_package_index <- which.min(!installed_packages %in% this_package)
-        result[[this_package]][["title"]] <- packageDescription(installed_packages[this_package_index])[["Title"]]
+        result[[this_package]][["title"]] <- utils::packageDescription(installed_packages[this_package_index])[["Title"]]
       } else {}
       if(this_package %in% unique(loaded_packages[loaded_koRpus_lang])){
         result[[this_package]][["loaded"]] <- TRUE
