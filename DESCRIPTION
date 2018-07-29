@@ -31,7 +31,7 @@ Encoding: UTF-8
 LazyLoad: yes
 Authors@R: c(person(given="Meik", family="Michalke",
         email="meik.michalke@hhu.de", role=c("aut", "cre")))
-Version: 0.1-5
+Version: 0.1-6
 Date: 2018-07-29
 Collate: 
     '00_environment.R'
