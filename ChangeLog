@@ -1,8 +1,11 @@
 ChangeLog for package sylly
 
-changes in version 0.1-6 (2018-07-29)
+changes in version 0.1-6 (2019-11-15)
 unreleased:
   - this release is under development
+changed:
+  - sylly:::kRp.hyphen.calc(): replaced a for loop with apply(), almost twice
+    as fast now (without caching!)
 
 changes in version 0.1-5 (2018-07-29)
 fixed:

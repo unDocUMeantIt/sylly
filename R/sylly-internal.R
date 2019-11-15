@@ -1,4 +1,4 @@
-# Copyright 2010-2018 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2010-2019 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package sylly.
 #
@@ -541,32 +541,41 @@ kRp.hyphen.calc <- function(
       # give some feedback, so we know the machine didn't just freeze...
       prgBar <- txtProgressBar(min=0, max=length(uniqueWords), style=3)
     } else {}
-    # initialize result data.frame
-    hyph.df <- data.frame(
-      syll=1,
-      word="",
-      token=as.character(words),
-      stringsAsFactors=FALSE
-    )
-    for (nw in uniqueWords){
-      if(!isTRUE(quiet)){
-        # update prograss bar
-        iteration.counter <- get("counter", envir=.iter.counter)
-        setTxtProgressBar(prgBar, iteration.counter)
-        assign("counter", iteration.counter + 1, envir=.iter.counter)
-      } else {}
-      hyphenate.results <- hyphen.word(
-        nw,
-        hyph.pattern=hyph.pattern,
-        min.length=min.length,
-        rm.hyph=rm.hyph,
-        min.pattern=min.pat,
-        max.pattern=max.pat,
-        as.cache=FALSE
-      )[c("syll","word")]
-      hyph.df[hyph.df[["token"]] == nw, "syll"] <- as.numeric(hyphenate.results["syll"])
-      hyph.df[hyph.df[["token"]] == nw, "word"] <- hyphenate.results["word"]
-    }
+    hyphenate.results <- t(sapply(
+      uniqueWords,
+      function(nw){
+        if(!isTRUE(quiet)){
+          # update prograss bar
+          iteration.counter <- get("counter", envir=.iter.counter)
+          setTxtProgressBar(prgBar, iteration.counter)
+          assign("counter", iteration.counter + 1, envir=.iter.counter)
+        } else {}
+        return(
+          c(
+            nw,
+            hyphen.word(
+              nw,
+              hyph.pattern=hyph.pattern,
+              min.length=min.length,
+              rm.hyph=rm.hyph,
+              min.pattern=min.pat,
+              max.pattern=max.pat,
+              as.cache=FALSE
+            )[c("syll","word")]
+          )
+        )
+      }
+    ))
+    hyph.df <- as.data.frame(t(apply(
+      as.array(as.character(words)),
+      1,
+      function(w){
+        return(c(hyphenate.results[w,c("syll","word")]))
+      }
+    )), stringsAsFactors=FALSE)
+    colnames(hyph.df) <- c("syll","word")
+    rownames(hyph.df) <- NULL
+    hyph.df[["syll"]] <- as.numeric(hyph.df[["syll"]])
     if(!isTRUE(quiet)){
       # close prograss bar
       close(prgBar)
