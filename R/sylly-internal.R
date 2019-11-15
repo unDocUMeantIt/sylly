@@ -163,9 +163,9 @@ check.hyph.cache <- function(lang, token, cache=get.hyph.cache(lang=lang), missi
           function(tk){
             inCache <- cache[[tk]]
             if(is.null(inCache)){
-              return(c(syll=1, word=tk, token=tk))
+              return(c(syll=1, word=tk))
             } else {
-              return(c(syll=inCache[["syll"]], word=inCache[["word"]], token=tk))
+              return(c(syll=inCache[["syll"]], word=inCache[["word"]]))
             }
           },
           USE.NAMES=FALSE
@@ -390,13 +390,13 @@ hyphen.word <- function(
       } else {
         hyph.word <- unlist(strsplit(word.orig, split=""))
       }
-      for (letter in add.hyphen) {
-        hyph.word[letter] <- paste0(hyph.word[letter], "-")
-      }
-      hyph.word <- paste(hyph.word, collapse="")
+#       for (letter in add.hyphen) {
+#         hyph.word[letter] <- paste0(hyph.word[letter], "-")
+#       }
+      hyph.word[add.hyphen] <- paste0(hyph.word[add.hyphen], "-")
       # in cases where previous hyphenations were already removed and here returned,
       # don't return double them up
-      hyph.word <- gsub("-+", "-", hyph.word)
+      hyph.word <- gsub("-+", "-", paste(hyph.word, collapse=""))
       if(isTRUE(as.cache)){
         hyph.result <- list(syll=syllables, word=hyph.word)
       } else {
@@ -604,9 +604,9 @@ kRp.hyphen.calc <- function(
   } else {}
 
   if(identical(as, "kRp.hyphen")){
-    results <- kRp_hyphen(lang=lang, desc=desc.stat.res, hyphen=hyph.df[c("syll","word")])
+    results <- kRp_hyphen(lang=lang, desc=desc.stat.res, hyphen=hyph.df)
   } else if(identical(as, "data.frame")){
-    results <- hyph.df[c("syll","word")]
+    results <- hyph.df
   } else if(identical(as, "numeric")){
     results <- hyph.df[["syll"]]
   } else {
