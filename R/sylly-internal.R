@@ -102,7 +102,7 @@ explode.word <- function(word, min.pattern=2L, max.pattern=5L){
     result <- data.frame(frag=word, on=1L, off=min(word.length, min.pattern))
   } else {
     all.patterns <- mget("all.patterns", envir=as.environment(.sylly.env), ifnotfound=list(NULL))[["all.patterns"]]
-    result.list <- sapply(
+    result <- matrix(unlist(vapply(
       unlist(all.patterns[[word.length]][min.pattern:min(word.length, max.pattern)], recursive=FALSE),
       function(lttrs){
         return(
@@ -115,9 +115,9 @@ explode.word <- function(word, min.pattern=2L, max.pattern=5L){
           )
         )
       },
+      FUN.VALUE=c(frag="", on=0, off=0, match=NA),
       USE.NAMES=FALSE
-    )
-    result <- matrix(unlist(result.list), nrow=4L, dimnames=list(c("frag","on","off","match"),NULL))
+    )), nrow=4L, dimnames=list(c("frag","on","off","match"),NULL))
   }
   return(result)
 } ## function explode.word()
@@ -159,7 +159,8 @@ check.hyph.cache <- function(lang, token, cache=get.hyph.cache(lang=lang), missi
     } else if(isTRUE(multiple)){
       # update fields with data from cache if available
       result <- as.data.frame(t(
-        sapply(token,
+        vapply(
+          token,
           function(tk){
             inCache <- cache[[tk]]
             if(is.null(inCache)){
@@ -168,9 +169,11 @@ check.hyph.cache <- function(lang, token, cache=get.hyph.cache(lang=lang), missi
               return(c(syll=inCache[["syll"]], word=inCache[["word"]]))
             }
           },
+          FUN.VALUE=c(syll=0, word=""),
           USE.NAMES=FALSE
         )
       ), stringsAsFactors=FALSE)
+      colnames(result) <- c("syll", "word")
       result[["syll"]] <- as.numeric(result[["syll"]])
     } else {
       # check if this word was hyphenated before;
@@ -203,12 +206,11 @@ set.hyph.cache <- function(lang, append=NULL, cache=get.hyph.cache(lang=lang)){
   if(!is.null(append)){
     # could be there is no cache yet
     if(is.null(cache)){
-      cache <- list()
+      cache <- new.env()
     } else {}
     # using arbitrary character stuff for names might fail
     try(
-      # 'all.names=TRUE' is needed to not lose all tokens that begin with a dot!
-      cache <- as.environment(modifyList(as.list(cache, all.names=TRUE), as.list(append, all.names=TRUE)))
+      cache <- list2env(append, envir=cache)
     )
   } else {
     if(is.null(cache)){
@@ -354,22 +356,27 @@ hyphen.word <- function(
     # create word fragments ".wo", ".wor"... "rd."
     matched.patterns <- explode.word(word.dotted, min.pattern=min.pattern, max.pattern=max.pattern)
     # find all matching patterns of the word fragments
-    matched.patterns["match",] <- sapply(matched.patterns["frag",],
+    matched.patterns["match",] <- vapply(
+      matched.patterns["frag",],
       function(f){
         in.patterns <- slot(hyph.pattern, "pattern")[[f]]
-        return(ifelse(is.null(in.patterns), NA, in.patterns[["nums"]]))
+        return(ifelse(is.null(in.patterns), "", in.patterns[["nums"]]))
       },
+      FUN.VALUE="",
       USE.NAMES=FALSE
     )
     # now let's add the found matches and find the maximum
-    matched.pat.index <- !is.na(matched.patterns["match",])
+    matched.pat.index <- !"" == matched.patterns["match",]
     if(sum(matched.pat.index) > 0){
-      pattern.matrix <- sapply(which(matched.pat.index), function(got.match){
+      pattern.matrix <- vapply(
+        which(matched.pat.index),
+        function(got.match){
           word.on <- max(1, (as.numeric(matched.patterns["on",got.match]) - 1))
           word.off <- as.numeric(matched.patterns["off",got.match])
           match.num.code <- unlist(strsplit(matched.patterns["match",got.match], split=""))
-          results <- c(rep(0, word.on - 1), match.num.code, rep(0, word.length - word.off))
+          return(c(rep(0, word.on - 1), match.num.code, rep(0, word.length - word.off)))
         },
+        FUN.VALUE=rep("", word.length),
         USE.NAMES=FALSE
       )
       # this is the vector with the max values for the dotted word
@@ -390,9 +397,6 @@ hyphen.word <- function(
       } else {
         hyph.word <- unlist(strsplit(word.orig, split=""))
       }
-#       for (letter in add.hyphen) {
-#         hyph.word[letter] <- paste0(hyph.word[letter], "-")
-#       }
       hyph.word[add.hyphen] <- paste0(hyph.word[add.hyphen], "-")
       # in cases where previous hyphenations were already removed and here returned,
       # don't return double them up
@@ -541,9 +545,9 @@ kRp.hyphen.calc <- function(
       # give some feedback, so we know the machine didn't just freeze...
       prgBar <- txtProgressBar(min=0, max=length(uniqueWords), style=3)
     } else {}
-    hyphenate.results <- t(sapply(
+    hyphenate.results <- t(vapply(
       uniqueWords,
-      function(nw){
+      FUN=function(nw){
         if(!isTRUE(quiet)){
           # update prograss bar
           iteration.counter <- get("counter", envir=.iter.counter)
@@ -551,28 +555,21 @@ kRp.hyphen.calc <- function(
           assign("counter", iteration.counter + 1, envir=.iter.counter)
         } else {}
         return(
-          c(
+          hyphen.word(
             nw,
-            hyphen.word(
-              nw,
-              hyph.pattern=hyph.pattern,
-              min.length=min.length,
-              rm.hyph=rm.hyph,
-              min.pattern=min.pat,
-              max.pattern=max.pat,
-              as.cache=FALSE
-            )[c("syll","word")]
+            hyph.pattern=hyph.pattern,
+            min.length=min.length,
+            rm.hyph=rm.hyph,
+            min.pattern=min.pat,
+            max.pattern=max.pat,
+            as.cache=FALSE
           )
         )
-      }
+      },
+      FUN.VALUE=c(syll=0, word=""),
+      USE.NAMES=TRUE
     ))
-    hyph.df <- as.data.frame(t(apply(
-      as.array(as.character(words)),
-      1,
-      function(w){
-        return(c(hyphenate.results[w,c("syll","word")]))
-      }
-    )), stringsAsFactors=FALSE)
+    hyph.df <- as.data.frame(hyphenate.results[as.character(words), ], stringsAsFactors=FALSE)
     colnames(hyph.df) <- c("syll","word")
     rownames(hyph.df) <- NULL
     hyph.df[["syll"]] <- as.numeric(hyph.df[["syll"]])
@@ -688,7 +685,7 @@ load.hyph.pattern <- function(lang){
 is.supported.lang <- function(lang.ident, support="hyphen"){
   if(identical(support, "hyphen")){
     hyphen.supported <- as.list(as.environment(.sylly.env))[["langSup"]][["hyphen"]][["supported"]]
-    if(lang.ident %in% names(hyphen.supported)){
+    if(any(names(hyphen.supported) == lang.ident)){
       res.ident <- hyphen.supported[[lang.ident]]
     } else {
       stop(simpleError(paste0("Unknown language: \"", lang.ident, "\".\nPlease provide a valid hyphenation pattern!")))
@@ -809,15 +806,15 @@ check_lang_packages <- function(available=FALSE, repos="https://undocumeantit.gi
     }
     for (this_package in all_packages){
       result[[this_package]] <- list(available=NA, installed=FALSE, loaded=FALSE, title="(unknown)")
-      if(all(isTRUE(available), this_package %in% supported_lang)){
+      if(all(isTRUE(available), any(supported_lang == this_package))){
         result[[this_package]][["available"]] <- TRUE
       } else {}
-      if(this_package %in% unique(installed_packages[installed_koRpus_lang])){
+      if(any(installed_packages[installed_koRpus_lang] == this_package)){
         result[[this_package]][["installed"]] <- TRUE
         this_package_index <- which.min(!installed_packages %in% this_package)
         result[[this_package]][["title"]] <- utils::packageDescription(installed_packages[this_package_index])[["Title"]]
       } else {}
-      if(this_package %in% unique(loaded_packages[loaded_koRpus_lang])){
+      if(any(loaded_packages[loaded_koRpus_lang] == this_package)){
         result[[this_package]][["loaded"]] <- TRUE
       } else {}
     }
