@@ -209,9 +209,16 @@ set.hyph.cache <- function(lang, append=NULL, cache=get.hyph.cache(lang=lang)){
       cache <- new.env()
     } else {}
     # using arbitrary character stuff for names might fail
-    try(
-      cache <- list2env(append, envir=cache)
-    )
+    if(is.environment(append)){
+      parent.env(append) <- cache
+      all.kRp.env.hyph[[lang]] <- append
+    } else {
+      try(
+        cache <- list2env(append, envir=cache)
+      )
+      all.kRp.env.hyph[[lang]] <- cache
+      assign("hyphenCache", all.kRp.env.hyph, envir=as.environment(.sylly.env))
+    }
   } else {
     if(is.null(cache)){
       # hm, if both is null, don't do anything
@@ -220,8 +227,6 @@ set.hyph.cache <- function(lang, append=NULL, cache=get.hyph.cache(lang=lang)){
     } else {}
   }
 
-  all.kRp.env.hyph[[lang]] <- cache
-  assign("hyphenCache", all.kRp.env.hyph, envir=as.environment(.sylly.env))
   # unlock cache
   assign("hyphenCacheLock", list(hyphenCacheLock=FALSE), pos=as.environment(.sylly.env))
   return(invisible(NULL))
