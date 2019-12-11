@@ -206,19 +206,24 @@ set.hyph.cache <- function(lang, append=NULL, cache=get.hyph.cache(lang=lang)){
   if(!is.null(append)){
     # could be there is no cache yet
     if(is.null(cache)){
-      cache <- new.env()
+# TODO: using an environment destroyed caching facilities, need to rething this
+#       cache <- new.env()
+      cache <- list()
     } else {}
     # using arbitrary character stuff for names might fail
-    if(is.environment(append)){
-      parent.env(append) <- cache
-      all.kRp.env.hyph[[lang]] <- append
-    } else {
+# TODO: using an environment destroyed caching facilities, need to rething this
+#     if(is.environment(append)){
+#       parent.env(append) <- cache
+#       all.kRp.env.hyph[[lang]] <- append
+#     } else {
       try(
-        cache <- list2env(append, envir=cache)
+#         cache <- list2env(append, envir=cache)
+        # 'all.names=TRUE' is needed to not lose all tokens that begin with a dot!
+        cache <- as.environment(modifyList(as.list(cache, all.names=TRUE), as.list(append, all.names=TRUE)))
       )
-      all.kRp.env.hyph[[lang]] <- cache
-      assign("hyphenCache", all.kRp.env.hyph, envir=as.environment(.sylly.env))
-    }
+#       all.kRp.env.hyph[[lang]] <- cache
+#       assign("hyphenCache", all.kRp.env.hyph, envir=as.environment(.sylly.env))
+#     }
   } else {
     if(is.null(cache)){
       # hm, if both is null, don't do anything
@@ -227,6 +232,8 @@ set.hyph.cache <- function(lang, append=NULL, cache=get.hyph.cache(lang=lang)){
     } else {}
   }
 
+  all.kRp.env.hyph[[lang]] <- cache
+  assign("hyphenCache", all.kRp.env.hyph, envir=as.environment(.sylly.env))
   # unlock cache
   assign("hyphenCacheLock", list(hyphenCacheLock=FALSE), pos=as.environment(.sylly.env))
   return(invisible(NULL))
