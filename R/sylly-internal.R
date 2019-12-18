@@ -133,7 +133,11 @@ get.hyph.cache <- function(lang){
   }
   # simply get cache from current sylly environment
   # returns NULL if none exists
-  return(mget("hyphenCache", envir=as.environment(.sylly.env), ifnotfound=list(NULL))[["hyphenCache"]][[lang]])
+  if(isTRUE(lang == "all")){
+    return(mget("hyphenCache", envir=as.environment(.sylly.env), ifnotfound=list(NULL))[["hyphenCache"]])
+  } else {
+    return(mget("hyphenCache", envir=as.environment(.sylly.env), ifnotfound=list(NULL))[["hyphenCache"]][[lang]])
+  }
 }
 ## end function get.hyph.cache()
 
@@ -193,7 +197,7 @@ set.hyph.cache <- function(lang, append=NULL, cache=get.hyph.cache(lang=lang)){
   # don't try anything while cache is locked
   locked <- mget("hyphenCacheLock", envir=as.environment(.sylly.env), ifnotfound=list(hyphenCacheLock=FALSE))[["hyphenCacheLock"]]
   while(isTRUE(locked)){
-    Sys.sleep(0.2)
+    Sys.sleep(0.1)
     locked <- mget("hyphenCacheLock", envir=as.environment(.sylly.env), ifnotfound=list(hyphenCacheLock=FALSE))[["hyphenCacheLock"]]
   }
   # now *we* lock the cache
@@ -206,24 +210,14 @@ set.hyph.cache <- function(lang, append=NULL, cache=get.hyph.cache(lang=lang)){
   if(!is.null(append)){
     # could be there is no cache yet
     if(is.null(cache)){
-# TODO: using an environment destroyed caching facilities, need to rething this
-#       cache <- new.env()
-      cache <- list()
+      cache <- new.env()
     } else {}
     # using arbitrary character stuff for names might fail
-# TODO: using an environment destroyed caching facilities, need to rething this
-#     if(is.environment(append)){
-#       parent.env(append) <- cache
-#       all.kRp.env.hyph[[lang]] <- append
-#     } else {
       try(
-#         cache <- list2env(append, envir=cache)
         # 'all.names=TRUE' is needed to not lose all tokens that begin with a dot!
-        cache <- as.environment(modifyList(as.list(cache, all.names=TRUE), as.list(append, all.names=TRUE)))
+        cache <- list2env(as.list(append, all.names=TRUE), envir=cache)
+#         cache <- as.environment(modifyList(as.list(cache, all.names=TRUE), as.list(append, all.names=TRUE)))
       )
-#       all.kRp.env.hyph[[lang]] <- cache
-#       assign("hyphenCache", all.kRp.env.hyph, envir=as.environment(.sylly.env))
-#     }
   } else {
     if(is.null(cache)){
       # hm, if both is null, don't do anything
@@ -232,7 +226,11 @@ set.hyph.cache <- function(lang, append=NULL, cache=get.hyph.cache(lang=lang)){
     } else {}
   }
 
-  all.kRp.env.hyph[[lang]] <- cache
+  if(isTRUE(lang == "all")){
+    all.kRp.env.hyph <- cache
+  } else {
+    all.kRp.env.hyph[[lang]] <- cache
+  }
   assign("hyphenCache", all.kRp.env.hyph, envir=as.environment(.sylly.env))
   # unlock cache
   assign("hyphenCacheLock", list(hyphenCacheLock=FALSE), pos=as.environment(.sylly.env))
@@ -250,7 +248,7 @@ read.hyph.cache.file <- function(lang, file=get.sylly.env(hyph.cache.file=TRUE, 
   cache.file.path <- normalizePath(file, mustWork=FALSE)
   if(!file.exists(cache.file.path)){
     # if the file is not there yet, create one
-    write.hyph.cache.file(lang=lang, quiet=quiet)
+    write.hyph.cache.file(quiet=quiet)
   } else {}
   # only reload the file if it changed or wasn't loaded at all yet
   cacheFileInfo.new <- file.mtime(cache.file.path)
@@ -294,7 +292,7 @@ read.hyph.cache.file <- function(lang, file=get.sylly.env(hyph.cache.file=TRUE, 
   assign("hyphenCacheFile", cacheFileInfo.old, envir=as.environment(.sylly.env))
 
   # write loaded data to environment
-  set.hyph.cache(lang=lang, append=sylly.hyph.cache, cache=get.hyph.cache(lang=lang))
+  set.hyph.cache(lang="all", append=sylly.hyph.cache, cache=get.hyph.cache(lang="all"))
 
   return(invisible(NULL))
 } ## end function read.hyph.cache.file()
@@ -302,7 +300,7 @@ read.hyph.cache.file <- function(lang, file=get.sylly.env(hyph.cache.file=TRUE, 
 
 ## function write.hyph.cache.file()
 # dumps cache data into a file, if "file" is not NULL. if it doesn't exist, it will be created
-write.hyph.cache.file <- function(lang, file=get.sylly.env(hyph.cache.file=TRUE, errorIfUnset=FALSE), quiet=FALSE){
+write.hyph.cache.file <- function(file=get.sylly.env(hyph.cache.file=TRUE, errorIfUnset=FALSE), quiet=FALSE){
   if(is.null(file)){
     return(invisible(NULL))
   } else {}
@@ -314,7 +312,7 @@ write.hyph.cache.file <- function(lang, file=get.sylly.env(hyph.cache.file=TRUE,
     } else {}
   } else {}
 
-  sylly.hyph.cache <- get.hyph.cache(lang=lang)
+  sylly.hyph.cache <- get.hyph.cache(lang="all")
   # if there is no cache yet, make it an empty environment
   if(is.null(sylly.hyph.cache)){
     sylly.hyph.cache <- list()
@@ -512,42 +510,40 @@ kRp.hyphen.calc <- function(
     # hyphenate them and append them to cache in *one* go and *then* fetch results
     # for the actual hyphenation all from cache; omit uncachable tokens in the first place
     typesMissingInCache  <- check.hyph.cache(lang=lang, token=uniqueWords[nchar(uniqueWords) >= min.length], missing=TRUE)
-    if(!is.null(typesMissingInCache)){
-      if(length(typesMissingInCache) > 0){
-        if(!isTRUE(quiet)){
-          # give some feedback, so we know the machine didn't just freeze...
-          prgBar <- txtProgressBar(min=0, max=length(typesMissingInCache), style=3)
-        } else {}
-        typesMissingHyphenated <- setNames(
-          object=lapply(
-            typesMissingInCache,
-            function(nw){
-              if(!isTRUE(quiet)){
-                # update prograss bar
-                iteration.counter <- get("counter", envir=.iter.counter)
-                setTxtProgressBar(prgBar, iteration.counter)
-                assign("counter", iteration.counter + 1, envir=.iter.counter)
-              } else {}
-              return(hyphen.word(
-                nw,
-                hyph.pattern=hyph.pattern,
-                min.length=min.length,
-                rm.hyph=rm.hyph,
-                min.pattern=min.pat,
-                max.pattern=max.pat,
-                as.cache=TRUE
-              ))
-            }
-          ),
-          nm=typesMissingInCache
-        )
-        typesMissingHyphenated[["syll"]] <- as.numeric(typesMissingHyphenated[["syll"]])
-        set.hyph.cache(lang=lang, append=typesMissingHyphenated)
-        assign("changed", TRUE, envir=writeBackCache)
-        if(!isTRUE(quiet)){
-          # close prograss bar
-          close(prgBar)
-        } else {}
+    if(length(typesMissingInCache) > 0){
+      if(!isTRUE(quiet)){
+        # give some feedback, so we know the machine didn't just freeze...
+        prgBar <- txtProgressBar(min=0, max=length(typesMissingInCache), style=3)
+      } else {}
+      typesMissingHyphenated <- setNames(
+        object=lapply(
+          typesMissingInCache,
+          function(nw){
+            if(!isTRUE(quiet)){
+              # update prograss bar
+              iteration.counter <- get("counter", envir=.iter.counter)
+              setTxtProgressBar(prgBar, iteration.counter)
+              assign("counter", iteration.counter + 1, envir=.iter.counter)
+            } else {}
+            return(hyphen.word(
+              nw,
+              hyph.pattern=hyph.pattern,
+              min.length=min.length,
+              rm.hyph=rm.hyph,
+              min.pattern=min.pat,
+              max.pattern=max.pat,
+              as.cache=TRUE
+            ))
+          }
+        ),
+        nm=typesMissingInCache
+      )
+      typesMissingHyphenated[["syll"]] <- as.numeric(typesMissingHyphenated[["syll"]])
+      set.hyph.cache(lang=lang, append=typesMissingHyphenated)
+      assign("changed", TRUE, envir=writeBackCache)
+      if(!isTRUE(quiet)){
+        # close prograss bar
+        close(prgBar)
       } else {}
     } else {}
     # fetch results from cache in one go
@@ -609,7 +605,7 @@ kRp.hyphen.calc <- function(
   if(all(isTRUE(cache), isTRUE(get("changed", envir=writeBackCache)))){
     # check if cached hyphenation data has been set with set.sylly.env().
     # if so and if we added to it here, the current data will be written back to that file
-    write.hyph.cache.file(lang=lang, file=get.sylly.env(hyph.cache.file=TRUE, errorIfUnset=FALSE), quiet=quiet)
+    write.hyph.cache.file(file=get.sylly.env(hyph.cache.file=TRUE, errorIfUnset=FALSE), quiet=quiet)
   } else {}
 
   if(identical(as, "kRp.hyphen")){
