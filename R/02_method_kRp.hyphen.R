@@ -55,7 +55,7 @@ setMethod("describe",
 #' @rdname kRp.hyphen-methods
 #' @export
 #' @docType methods
-setGeneric("describe<-", function(obj, value) standardGeneric("describe<-"))
+setGeneric("describe<-", function(obj, ..., value) standardGeneric("describe<-"))
 #' @rdname kRp.hyphen-methods
 #' @export
 #' @docType methods
