@@ -4,8 +4,15 @@
 \alias{manage.hyph.pat}
 \title{Handling hyphenation pattern objects}
 \usage{
-manage.hyph.pat(hyph.pattern, get = NULL, set = NULL, rm = NULL,
-  word = NULL, min.length = 3L, rm.hyph = TRUE)
+manage.hyph.pat(
+  hyph.pattern,
+  get = NULL,
+  set = NULL,
+  rm = NULL,
+  word = NULL,
+  min.length = 3L,
+  rm.hyph = TRUE
+)
 }
 \arguments{
 \item{hyph.pattern}{Either an object of class \code{kRp.hyph.pat},

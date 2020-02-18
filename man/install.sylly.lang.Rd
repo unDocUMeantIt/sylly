@@ -4,8 +4,11 @@
 \alias{install.sylly.lang}
 \title{Install language support packages}
 \usage{
-install.sylly.lang(lang,
-  repos = "https://undocumeantit.github.io/repos/l10n/", ...)
+install.sylly.lang(
+  lang,
+  repos = "https://undocumeantit.github.io/repos/l10n/",
+  ...
+)
 }
 \arguments{
 \item{lang}{Character vector,

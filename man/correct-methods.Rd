@@ -4,13 +4,11 @@
 \name{correct.hyph}
 \alias{correct.hyph}
 \alias{correct.hyph,kRp.hyphen-method}
-\alias{correct.hyph}
 \title{Correct kRp.hyphen objects}
 \usage{
 correct.hyph(obj, word = NULL, hyphen = NULL, cache = TRUE)
 
-\S4method{correct.hyph}{kRp.hyphen}(obj, word = NULL, hyphen = NULL,
-  cache = TRUE)
+\S4method{correct.hyph}{kRp.hyphen}(obj, word = NULL, hyphen = NULL, cache = TRUE)
 }
 \arguments{
 \item{obj}{An object of class \code{\link[sylly:kRp.hyphen-class]{kRp.hyphen}}.}

@@ -23,7 +23,7 @@ support, you should consider making it a package.
 If it succeeds,
       it will fill an internal environment with the information you have defined.
 \code{hyphen} will then know which language patterns are available as data files (which
-you must provide also).
+you must provide also). 
 
 You provide the meta data as a named list. It usually has one single entry to tell the new language
 abbreviation, e.g., \code{set.hyph.support(list("xyz"="xyz"))}. However,

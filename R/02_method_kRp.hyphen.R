@@ -1,4 +1,4 @@
-# Copyright 2010-2017 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2010-2020 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package sylly.
 #
@@ -28,10 +28,11 @@
 #'   \item{\code{[}/\code{[[} }{Can be used as a shortcut to index the results of \code{hyphenText()}.}
 #' }
 #' @param obj An object of class \code{\link[sylly:kRp.hyphen-class]{kRp.hyphen}}.
+#' @param ... Additional arguments as defined by respective methods.
 #' @docType methods
 #' @export
 #' @rdname kRp.hyphen-methods
-setGeneric("describe", function(obj) standardGeneric("describe"))
+setGeneric("describe", function(obj, ...) standardGeneric("describe"))
 
 #' @export
 #' @docType methods
