@@ -1,4 +1,4 @@
-# Copyright 2010-2019 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2010-2020 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package sylly.
 #
@@ -577,7 +577,7 @@ kRp.hyphen.calc <- function(
       FUN.VALUE=c(syll=0, word=""),
       USE.NAMES=TRUE
     ))
-    hyph.df <- as.data.frame(hyphenate.results[as.character(words), ], stringsAsFactors=FALSE)
+    hyph.df <- as.data.frame(hyphenate.results[as.character(words), , drop=FALSE], stringsAsFactors=FALSE)
     colnames(hyph.df) <- c("syll","word")
     rownames(hyph.df) <- NULL
     hyph.df[["syll"]] <- as.numeric(hyph.df[["syll"]])

@@ -64,7 +64,7 @@ setGeneric("describe<-", function(obj, ..., value) standardGeneric("describe<-")
 #' @include 01_class_02_kRp.hyphen.R
 setMethod("describe<-",
   signature=signature(obj="kRp.hyphen"),
-  function (obj, value){
+  function (obj, ..., value){
     slot(obj, name="desc") <- value
     return(obj)
   }
