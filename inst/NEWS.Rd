@@ -1,6 +1,17 @@
 \name{NEWS}
 \title{News for Package 'sylly'}
 \encoding{UTF-8}
+\section{Changes in sylly version 0.1-6 (2020-03-23)}{
+  \subsection{changed}{
+    \itemize{
+      \item \code{sylly:::kRp.hyphen.calc()}: replaced a for loop with \code{apply()}, almost twice
+        as fast now (without caching)
+      \item \code{hyphen()}: optimized processing speed, saves ~75\% if your time now
+      \item \code{describe()}: the generic now provides the dots argument (\code{"..."}) to allow
+        adding further arguments by different methods
+    }
+  }
+}
 \section{Changes in sylly version 0.1-5 (2018-07-29)}{
   \subsection{fixed}{
     \itemize{

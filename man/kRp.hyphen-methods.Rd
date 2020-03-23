@@ -34,9 +34,9 @@ describe(obj, ...)
 
 \S4method{describe}{kRp.hyphen}(obj)
 
-describe(obj) <- value
+describe(obj, ...) <- value
 
-\S4method{describe}{kRp.hyphen}(obj) <- value
+\S4method{describe}{kRp.hyphen}(obj, ...) <- value
 
 language(obj)
 

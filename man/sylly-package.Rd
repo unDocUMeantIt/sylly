@@ -14,7 +14,7 @@ The DESCRIPTION file:
 Package: \tab sylly\cr
 Type: \tab Package\cr
 Version: \tab 0.1-6\cr
-Date: \tab 2020-02-18\cr
+Date: \tab 2020-03-23\cr
 Depends: \tab R (>= 3.0.0)\cr
 Encoding: \tab UTF-8\cr
 License: \tab GPL (>= 3)\cr
