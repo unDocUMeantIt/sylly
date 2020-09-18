@@ -93,7 +93,7 @@ set.sylly.env <- function(..., validate=TRUE){
     if(all(is.numeric(hyph.max.token.length), isTRUE(length(hyph.max.token.length) == 1))){
       sylly_options[["hyph.max.token.length"]] <- hyph.max.token.length
       # regenerate internal object with all possible patterns of subcharacters for hyphenation
-      all.patterns <- explode.letters()
+      all.patterns <- explode.letters(max.word.length=hyph.max.token.length)
       assign("all.patterns", all.patterns, envir=as.environment(.sylly.env))
     } else {
       stop(simpleError("'hyph.max.token.length' must be a single numeric value!"))

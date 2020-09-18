@@ -1,6 +1,12 @@
 ChangeLog for package sylly
 
-changes in version 0.1-6 (2020-03-23)
+changes in version 0.1-6 (2020-09-18)
+unreleased:
+  - this version is under development
+fixed:
+  - hyphen(): fixed the automatic adjustment of hyph.max.token.length that
+    was introduced with 0.1-1 but turned out to be broken, at least with
+    R 4.x
 changed:
   - sylly:::kRp.hyphen.calc(): replaced a for loop with apply(), almost twice
     as fast now (without caching)
@@ -58,7 +64,7 @@ changed:
   - initial release
   - show(): method now only truncates the mid section of samples larger than
     15 words
-  - all.patterns: this internal cache object is now dynymically generated
+  - all.patterns: this internal cache object is now dynamically generated
     when the package is loaded, which slows down the loading process but saves
     ~6.5MB in package size
   - hyph.max.token.length: this object was moved into the internal .sylly.env
