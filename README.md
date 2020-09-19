@@ -19,7 +19,7 @@ More information on sylly is available on the [project homepage](https://reaktan
 The latest release that is considered stable for productive work can be found on the CRAN mirrors, which
 means you can install it from a running R session like this:
 
-```
+```r
 install.packages("sylly")
 ```
 
@@ -34,7 +34,7 @@ or supposed bug fixes, and get feedback before the next release goes to CRAN.
 
 Installation is fairly easy, too:
 
-```
+```r
 install.packages("sylly", repo=c(getOption("repos"), reaktanz="https://reaktanz.de/R"))
 ```
 
@@ -46,12 +46,11 @@ If you're running a Debian based operating system, you might be interested in th
 
 ### Installation via GitHub
 
-To install the package directly from GitHub, you can use `install_github()` from the [devtools](https://github.com/hadley/devtools) package:
+To install the package directly from GitHub, you can use `install_github()` from the [devtools](https://github.com/r-lib/devtools) package:
 
-```
-library(devtools)
-install_github("unDocUMeantIt/sylly") # stable release
-install_github("unDocUMeantIt/sylly", ref="develop") # development release
+```r
+devtools::install_github("unDocUMeantIt/sylly") # stable release
+devtools::install_github("unDocUMeantIt/sylly", ref="develop") # development release
 ```
 
 ## Language support
@@ -77,7 +76,7 @@ branch will be rejected, as it is reserved for the current stable release.
 
 ## License
 
-sylly Copyright (C) 2017 m.eik michalke, released under the
+sylly Copyright (C) 2017-2020 m.eik michalke, released under the
 GNU General Public License (GPL) version 3 or (at your option) any later version.
 
 This software is distributed in the hope that it will be useful, but
