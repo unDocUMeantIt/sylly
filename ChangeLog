@@ -1,5 +1,9 @@
 ChangeLog for package sylly
 
+changes in version 0.1-7 (2020-09-21)
+unreleased:
+  - this version is under development
+
 changes in version 0.1-6 (2020-09-19)
 fixed:
   - hyphen(): fixed the automatic adjustment of hyph.max.token.length that
