@@ -1,8 +1,11 @@
 ChangeLog for package sylly
 
-changes in version 0.1-7 (2020-09-21)
+changes in version 0.1-7 (2021-02-16)
 unreleased:
   - this version is under development
+changed:
+  - kRp.hyphen/kRp.hyph.pat: replaced prototype() in class definition
+    with initialize methods
 
 changes in version 0.1-6 (2020-09-19)
 fixed:

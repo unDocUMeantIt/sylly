@@ -1,4 +1,4 @@
-# Copyright 2010-2018 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2010-2021 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package sylly.
 #
@@ -45,8 +45,13 @@ kRp_hyphen <- setClass("kRp.hyphen",
     representation=representation(
     lang="character",
     desc="list",
-    hyphen="data.frame"),
-  prototype(
+    hyphen="data.frame")
+)
+
+
+setMethod("initialize", "kRp.hyphen",
+  function(
+    .Object,
     lang=character(),
     desc=list(
       num.syll=NA,
@@ -55,8 +60,16 @@ kRp_hyphen <- setClass("kRp.hyphen",
       avg.syll.word=NA,
       syll.per100=NA
     ),
-    hyphen=data.frame(syll=numeric(), word=character()))
+    hyphen=data.frame(syll=numeric(), word=character())
+  ){
+    slot(.Object, "lang") <- lang
+    slot(.Object, "desc") <- desc
+    slot(.Object, "hyphen") <- hyphen
+    validObject(.Object)
+    return(.Object)
+  }
 )
+
 
 setValidity("kRp.hyphen", function(object){
     hyphen <- object@hyphen

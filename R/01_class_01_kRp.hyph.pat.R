@@ -1,4 +1,4 @@
-# Copyright 2010-2018 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2010-2021 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package sylly.
 #
@@ -50,11 +50,26 @@
 kRp_hyph_pat <- setClass("kRp.hyph.pat",
     representation=representation(
     lang="character",
-    pattern="matrix"),
-  prototype(
-    lang=character(),
-    pattern=matrix(c(character(),character(),character()), ncol=3, dimnames=list(c(), c("orig", "char", "nums"))))
+    pattern="matrix")
 )
+
+
+setMethod("initialize", "kRp.hyph.pat",
+  function(
+    .Object,
+    lang=character(),
+    pattern=matrix(
+      c(character(), character(), character()),
+      ncol=3,
+      dimnames=list(c(), c("orig", "char", "nums")))
+  ){
+    slot(.Object, "lang") <- lang
+    slot(.Object, "pattern") <- pattern
+    validObject(.Object)
+    return(.Object)
+  }
+)
+
 
 setValidity("kRp.hyph.pat", function(object){
   lang <- slot(object, "lang")
