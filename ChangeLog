@@ -1,9 +1,12 @@
 ChangeLog for package sylly
 
-changes in version 0.1-7 (2021-02-16)
+changes in version 0.1-7 (2022-07-22)
 unreleased:
   - this version is under development
 changed:
+  - hyphen(): syll.distrib of the desc slot now fills up missing syllables with
+    0 values. thanks to jana ludwig for reporting bogus results of koRpus::SMOG()
+    for texts with only multisyllable words. this led to discovering the issue!
   - kRp.hyphen/kRp.hyph.pat: replaced prototype() in class definition
     with initialize methods
 

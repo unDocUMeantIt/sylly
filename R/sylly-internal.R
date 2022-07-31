@@ -1,4 +1,4 @@
-# Copyright 2010-2020 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2010-2022 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package sylly.
 #
@@ -589,8 +589,8 @@ kRp.hyphen.calc <- function(
 
   ## compute descriptive statistics
   num.syll <- sum(hyph.df$syll, na.rm=TRUE)
-  syll.distrib <- value.distribs(hyph.df$syll)
-  syll.uniq.distrib <- value.distribs(unique(hyph.df)$syll)
+  syll.distrib <- value.distribs(hyph.df$syll, omit.missings=FALSE)
+  syll.uniq.distrib <- value.distribs(unique(hyph.df)$syll, omit.missings=FALSE)
   avg.syll.word <- mean(hyph.df$syll, na.rm=TRUE)
   syll.per100 <- avg.syll.word * 100
 
