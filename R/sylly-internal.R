@@ -589,6 +589,10 @@ kRp.hyphen.calc <- function(
 
   ## compute descriptive statistics
   num.syll <- sum(hyph.df$syll, na.rm=TRUE)
+  # leave omit.missings=FALSE, otherwise the resulting tables will only have columns
+  # for numbers of syllables found in a text, which might have unintended consequnces
+  # e.g. if readability formulae need to know occurances of a particular cumulative number, and if
+  # the threshold value is missing use 0 instead of the correct number
   syll.distrib <- value.distribs(hyph.df$syll, omit.missings=FALSE)
   syll.uniq.distrib <- value.distribs(unique(hyph.df)$syll, omit.missings=FALSE)
   avg.syll.word <- mean(hyph.df$syll, na.rm=TRUE)
