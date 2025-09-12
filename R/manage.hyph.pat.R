@@ -22,7 +22,7 @@
 #'
 #' You can only run one of the possible actions at a time. If any of these arguments is not \code{NULL},
 #' the corresponding action is done in the following order, and every additional discarded:
-#' \itemize{
+#' \describe{
 #'   \item{\code{get}}{Searches the pattern set for a given word part}
 #'   \item{\code{set}}{Adds or replaces a pattern in the set (duplicates are removed)}
 #'   \item{\code{rm}}{Removes a word part and its pattern from the set}
