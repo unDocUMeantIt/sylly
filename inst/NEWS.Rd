@@ -1,6 +1,13 @@
 \name{NEWS}
 \title{News for Package 'sylly'}
 \encoding{UTF-8}
+\section{Changes in sylly version 0.1-8 (2026-02-02)}{
+  \subsection{unreleased}{
+    \itemize{
+      \item this version is under development
+    }
+  }
+}
 \section{Changes in sylly version 0.1-7 (2026-02-02)}{
   \subsection{fixed}{
     \itemize{
