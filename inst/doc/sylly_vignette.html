@@ -12,7 +12,7 @@
 
 <meta name="author" content="m.eik michalke" />
 
-<meta name="date" content="2020-09-19" />
+<meta name="date" content="2026-02-02" />
 
 <title>Using the sylly Package for Hyphenation and Syllable Count</title>
 
@@ -31,12 +31,30 @@ document.addEventListener('DOMContentLoaded', function(e) {
 </script>
 <meta name="flattr:id" content="4zdzgd" />
 
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
 
-<style type="text/css">code{white-space: pre;}</style>
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -48,55 +66,54 @@ pre > code.sourceCode { white-space: pre-wrap; }
 pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
-  { counter-reset: source-line 0; }
+{ counter-reset: source-line 0; }
 pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
+{ position: relative; left: -4em; counter-increment: source-line; }
 pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
 div.sourceCode
-  {   }
+{ }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -105,13 +122,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -121,16 +145,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </script>
 
 <style type="text/css">
-  p.abstract{
-    text-align: center;
-    font-weight: bold;
-  }
-  div.abstract{
-    margin: auto;
-    width: 90%;
-  }
+p.abstract{
+text-align: center;
+font-weight: bold;
+}
+div.abstract{
+margin: auto;
+width: 90%;
+}
 </style>
 
+
+<style type="text/css">
+
+div.csl-bib-body { }
+div.csl-entry {
+clear: both;
+}
+.hanging div.csl-entry {
+margin-left:2em;
+text-indent:-2em;
+}
+div.csl-left-margin {
+min-width:2em;
+float:left;
+}
+div.csl-right-inline {
+margin-left:2em;
+padding-left:1em;
+}
+div.csl-indent {
+margin-left: 2em;
+}
+</style>
 
 <style type="text/css">body {
 background-color: #fff;
@@ -324,57 +371,95 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">Using the sylly Package for Hyphenation and Syllable Count</h1>
+<h1 class="title toc-ignore">Using the sylly Package for Hyphenation and
+Syllable Count</h1>
 <h4 class="author">m.eik michalke</h4>
-<h4 class="date">2020-09-19</h4>
+<h4 class="date">2026-02-02</h4>
 <div class="abstract">
 <p class="abstract">Abstract</p>
-<p>Provides the hyphenation algorithm used for ‘TeX’/‘LaTeX’ and similar software.</p>
+<p>Provides the hyphenation algorithm used for ‘TeX’/‘LaTeX’ and similar
+software.</p>
 </div>
 
 
 <div id="TOC">
 <ul>
-<li><a href="#hyphenation">Hyphenation</a>
+<li><a href="#hyphenation" id="toc-hyphenation">Hyphenation</a>
 <ul>
-<li><a href="#alternative-output-formats">Alternative output formats</a></li>
+<li><a href="#alternative-output-formats" id="toc-alternative-output-formats">Alternative output formats</a></li>
 </ul></li>
-<li><a href="#support-new-languages">Support new languages</a></li>
-<li><a href="#correcting-errors">Correcting errors</a></li>
-<li><a href="#caching-the-hyphenation-dictionary">Caching the hyphenation dictionary</a></li>
-<li><a href="#acknowledgements">Acknowledgements</a></li>
-<li><a href="#references">References</a></li>
+<li><a href="#support-new-languages" id="toc-support-new-languages">Support new languages</a></li>
+<li><a href="#correcting-errors" id="toc-correcting-errors">Correcting
+errors</a></li>
+<li><a href="#caching-the-hyphenation-dictionary" id="toc-caching-the-hyphenation-dictionary">Caching the hyphenation
+dictionary</a></li>
+<li><a href="#acknowledgements" id="toc-acknowledgements">Acknowledgements</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
 </ul>
 </div>
 
 <div id="hyphenation" class="section level1">
 <h1>Hyphenation</h1>
-<p>The method <code>hyphen()</code> takes vectors of character strings (i.e., single words) and applies an hyphenation algorithm <span class="citation">(Liang, 1983)</span> to each word. This algorithm was originally developed for automatic word hyphenation in <span class="math inline">\(\LaTeX\)</span>, and is gracefully misused here to be of a slightly different service.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
-<p><code>hyphen()</code> needs a set of hyphenation patterns for each language it should analyze. If you’re lucky, there’s already a <a href="https://undocumeantit.github.io/repos/">pre-built package in the official <code>l10n</code> repository</a> for your language of interest that you only need to install and load. These packages are called <code>sylly.XX</code>, where <code>XX</code> is a two letter abbreviation for the particular language. For instance, <code>sylly.de</code> adds support for German, whereas <code>sylly.en</code> adds support for English:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>sampleText &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;This&quot;</span>, <span class="st">&quot;is&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;rather&quot;</span>, <span class="st">&quot;stupid&quot;</span>, <span class="st">&quot;demonstration&quot;</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="kw">library</span>(sylly.en)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>hyph.txt.en &lt;-<span class="st"> </span><span class="kw">hyphen</span>(sampleText, <span class="dt">hyph.pattern=</span><span class="st">&quot;en&quot;</span>)</span></code></pre></div>
+<p>The method <code>hyphen()</code> takes vectors of character strings
+(i.e., single words) and applies an hyphenation algorithm <span class="citation">(Liang, 1983)</span> to each word. This algorithm was
+originally developed for automatic word hyphenation in <span class="math inline">\(\LaTeX\)</span>, and is gracefully misused here to
+be of a slightly different service.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p><code>hyphen()</code> needs a set of hyphenation patterns for each
+language it should analyze. If you’re lucky, there’s already a <a href="https://undocumeantit.github.io/repos/">pre-built package in the
+official <code>l10n</code> repository</a> for your language of interest
+that you only need to install and load. These packages are called
+<code>sylly.XX</code>, where <code>XX</code> is a two letter
+abbreviation for the particular language. For instance,
+<code>sylly.de</code> adds support for German, whereas
+<code>sylly.en</code> adds support for English:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>sampleText <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;This&quot;</span>, <span class="st">&quot;is&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;rather&quot;</span>, <span class="st">&quot;stupid&quot;</span>, <span class="st">&quot;demonstration&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(sylly.en)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>hyph.txt.en <span class="ot">&lt;-</span> <span class="fu">hyphen</span>(sampleText, <span class="at">hyph.pattern=</span><span class="st">&quot;en&quot;</span>)</span></code></pre></div>
 <div id="alternative-output-formats" class="section level2">
 <h2>Alternative output formats</h2>
-<p>The method has a parameter called <code>as</code> which defines the object class of the returned results. It defaults to the S4 class <code>kRp.hyphen</code>. In addition to the hyphenated tokens, it includes various statistics and metadata, like the language of the text. These objects were designed to integrate seamlessly with the methods and functions of the <code>koRpus</code> package.</p>
-<p>When all you need is the actual data frame with hyphenated text, you could call <code>hyphenText()</code> on the <code>kRp.hyphen</code> object. But you could also set <code>as=&quot;data.frame&quot;</code> accordinly in the first place. Alternatively, using the shortcut method <code>hyphen_df()</code> instead of <code>hyphen()</code> will also return a simple data frame.</p>
-<p>If you’re only even interested in the numeric results, you can set <code>as=&quot;numeric&quot;</code> (or use <code>hyphen_c()</code>), which will strip down the results to just the numeric vector of syllables.</p>
+<p>The method has a parameter called <code>as</code> which defines the
+object class of the returned results. It defaults to the S4 class
+<code>kRp.hyphen</code>. In addition to the hyphenated tokens, it
+includes various statistics and metadata, like the language of the text.
+These objects were designed to integrate seamlessly with the methods and
+functions of the <code>koRpus</code> package.</p>
+<p>When all you need is the actual data frame with hyphenated text, you
+could call <code>hyphenText()</code> on the <code>kRp.hyphen</code>
+object. But you could also set <code>as=&quot;data.frame&quot;</code> accordinly
+in the first place. Alternatively, using the shortcut method
+<code>hyphen_df()</code> instead of <code>hyphen()</code> will also
+return a simple data frame.</p>
+<p>If you’re only even interested in the numeric results, you can set
+<code>as=&quot;numeric&quot;</code> (or use <code>hyphen_c()</code>), which will
+strip down the results to just the numeric vector of syllables.</p>
 </div>
 </div>
 <div id="support-new-languages" class="section level1">
 <h1>Support new languages</h1>
-<p>Should there be no package for your language, you can import pattern files from the <span class="math inline">\(\LaTeX\)</span> sources<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> and use the result as <code>hyph.pattern</code>:<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>url.is.pattern &lt;-<span class="st"> </span><span class="kw">url</span>(<span class="st">&quot;http://tug.ctan.org/tex-archive/language/hyph-</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="st">utf8/tex/generic/hyph-utf8/patterns/txt/hyph-is.pat.txt&quot;</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>hyph.is &lt;-<span class="st"> </span><span class="kw">read.hyph.pat</span>(url.is.pattern, <span class="dt">lang=</span><span class="st">&quot;is&quot;</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="kw">close</span>(url.is.pattern)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>hyph.txt.is &lt;-<span class="st"> </span><span class="kw">hyphen</span>(icelandicSampleText, <span class="dt">hyph.pattern=</span>hyph.is)</span></code></pre></div>
+<p>Should there be no package for your language, you can import pattern
+files from the <span class="math inline">\(\LaTeX\)</span> sources<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> and use
+the result as <code>hyph.pattern</code>:<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>url.is.pattern <span class="ot">&lt;-</span> <span class="fu">url</span>(<span class="st">&quot;https://ctan.org/tex-archive/language/hyph-</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="st">utf8/tex/patterns/txt/hyph-is.pat.txt&quot;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>hyph.is <span class="ot">&lt;-</span> <span class="fu">read.hyph.pat</span>(url.is.pattern, <span class="at">lang=</span><span class="st">&quot;is&quot;</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="fu">close</span>(url.is.pattern)</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>hyph.txt.is <span class="ot">&lt;-</span> <span class="fu">hyphen</span>(icelandicSampleText, <span class="at">hyph.pattern=</span>hyph.is)</span></code></pre></div>
 </div>
 <div id="correcting-errors" class="section level1">
 <h1>Correcting errors</h1>
-<p><code>hyphen()</code> might not produce perfect results. As a rule of thumb, if in doubt it seems to behave rather conservative, that is, is might underestimate the real number of syllables in a text.</p>
-<p>Depending on your use case, the more accurate the end results should be, the less you should rely on automatic hyphenation alone. But it sure is a good starting point, for there is a method called <code>correct.hyph()</code> to help you clean these results of errors later on. The most comfortable way to do this is to call <code>hyphenText(hyph.txt.en)</code>, which will get you a data frame with two colums, <code>word</code> (the hyphenated words) and <code>syll</code> (the number of syllables), and open it in a spread sheet editor:<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">hyphenText</span>(hyph.txt.en)</span></code></pre></div>
+<p><code>hyphen()</code> might not produce perfect results. As a rule of
+thumb, if in doubt it seems to behave rather conservative, that is, is
+might underestimate the real number of syllables in a text.</p>
+<p>Depending on your use case, the more accurate the end results should
+be, the less you should rely on automatic hyphenation alone. But it sure
+is a good starting point, for there is a method called
+<code>correct.hyph()</code> to help you clean these results of errors
+later on. The most comfortable way to do this is to call
+<code>hyphenText(hyph.txt.en)</code>, which will get you a data frame
+with two colums, <code>word</code> (the hyphenated words) and
+<code>syll</code> (the number of syllables), and open it in a spread
+sheet editor:<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">hyphenText</span>(hyph.txt.en)</span></code></pre></div>
 <pre><code>##    syll     word
 [...]
 ## 20    1    first
@@ -383,10 +468,13 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 ## 23    2 de-fense
 ## 24    1      and
 [...]</code></pre>
-<p>You can then manually correct wrong hyphenations by removing or inserting ``-’’ as hyphenation indicators, and call the method on the corrected object without further arguments, which will cause it to recount all syllables and update the statistics:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>hyph.txt.en &lt;-<span class="st"> </span><span class="kw">correct.hyph</span>(hyph.txt.en)</span></code></pre></div>
+<p>You can then manually correct wrong hyphenations by removing or
+inserting ``-’’ as hyphenation indicators, and call the method on the
+corrected object without further arguments, which will cause it to
+recount all syllables and update the statistics:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>hyph.txt.en <span class="ot">&lt;-</span> <span class="fu">correct.hyph</span>(hyph.txt.en)</span></code></pre></div>
 <p>The method can also be used to alter entries directly:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>hyph.txt.en &lt;-<span class="st"> </span><span class="kw">correct.hyph</span>(hyph.txt.en, <span class="dt">word=</span><span class="st">&quot;primary&quot;</span>, <span class="dt">hyphen=</span><span class="st">&quot;pri-ma-ry&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>hyph.txt.en <span class="ot">&lt;-</span> <span class="fu">correct.hyph</span>(hyph.txt.en, <span class="at">word=</span><span class="st">&quot;primary&quot;</span>, <span class="at">hyphen=</span><span class="st">&quot;pri-ma-ry&quot;</span>)</span></code></pre></div>
 <pre><code>## Changed
 ## 
 ##    syll    word
@@ -396,40 +484,76 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 ## 
 ##    syll      word
 ## 22    3 pri-ma-ry</code></pre>
-<p>Once you have corrected the hyphenation of a token, <code>sylly</code> will also update its cache (see below) and use the corrected format from now on.</p>
+<p>Once you have corrected the hyphenation of a token,
+<code>sylly</code> will also update its cache (see below) and use the
+corrected format from now on.</p>
 </div>
 <div id="caching-the-hyphenation-dictionary" class="section level1">
 <h1>Caching the hyphenation dictionary</h1>
-<p>By default, <code>hyphen()</code> caches the results of each token it analyzed internally for the running R session, and also checks its cache for each token it is called on. This speeds up the process, because it only has to split the token and look up matching patterns once. If for some reason you don’t want this (e.g., if it uses to much memory), you can turn caching off by setting <code>hyphen(..., cache=FALSE)</code>.</p>
-<p>If on the other hand you would like to preserve and re-use the cache, you can also configure <code>sylly</code> to write it to a file. To do so, you sould use <code>set.sylly.env()</code>:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">set.sylly.env</span>(<span class="dt">hyph.cache.file=</span><span class="st">&quot;~/sylly_cache.Rdata&quot;</span>)</span></code></pre></div>
-<p>The file will be created dynamically the first time it is needed, should it not exist already. You can use the same cache file for multiple languages. Furthermore, since most setting done with <code>set.sylly.env()</code> are stored in you session’s <code>options()</code>, you can also define this file permanently by adding somethin like the following to your <code>.Rprofile</code> file:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="kw">options</span>(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>  <span class="dt">sylly=</span><span class="kw">list</span>(</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a>    <span class="dt">hyph.cache.file=</span><span class="st">&quot;~/sylly_cache.RData&quot;</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a>  )</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a>)</span></code></pre></div>
-<p>This will cause <code>sylly</code> to always use this cache file by default. One of the main benefits of this, next to boosting speed, is the fact that corrections you have done in the past will be preserved for future sessions. In other words, if you fix incorrect hyphenation results from time to time, the overall accuracy of your results will improve constantly.</p>
+<p>By default, <code>hyphen()</code> caches the results of each token it
+analyzed internally for the running R session, and also checks its cache
+for each token it is called on. This speeds up the process, because it
+only has to split the token and look up matching patterns once. If for
+some reason you don’t want this (e.g., if it uses to much memory), you
+can turn caching off by setting
+<code>hyphen(..., cache=FALSE)</code>.</p>
+<p>If on the other hand you would like to preserve and re-use the cache,
+you can also configure <code>sylly</code> to write it to a file. To do
+so, you sould use <code>set.sylly.env()</code>:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">set.sylly.env</span>(<span class="at">hyph.cache.file=</span><span class="st">&quot;~/sylly_cache.Rdata&quot;</span>)</span></code></pre></div>
+<p>The file will be created dynamically the first time it is needed,
+should it not exist already. You can use the same cache file for
+multiple languages. Furthermore, since most setting done with
+<code>set.sylly.env()</code> are stored in you session’s
+<code>options()</code>, you can also define this file permanently by
+adding somethin like the following to your <code>.Rprofile</code>
+file:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">options</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="at">sylly=</span><span class="fu">list</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>    <span class="at">hyph.cache.file=</span><span class="st">&quot;~/sylly_cache.RData&quot;</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>  )</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>)</span></code></pre></div>
+<p>This will cause <code>sylly</code> to always use this cache file by
+default. One of the main benefits of this, next to boosting speed, is
+the fact that corrections you have done in the past will be preserved
+for future sessions. In other words, if you fix incorrect hyphenation
+results from time to time, the overall accuracy of your results will
+improve constantly.</p>
 </div>
 <div id="acknowledgements" class="section level1">
 <h1>Acknowledgements</h1>
-<p>The APA style used in this vignette was kindly provided by the <a href="https://citationstyles.org">CSL project</a>, licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported license</a>.</p>
+<p>The APA style used in this vignette was kindly provided by the <a href="https://citationstyles.org">CSL project</a>, licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0/">Creative Commons
+Attribution-ShareAlike 3.0 Unported license</a>.</p>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="unnumbered">References</h1>
-<div id="refs" class="references hanging-indent">
-<div id="ref-liang_word_1983">
-<p>Liang, F. M. (1983). <em>Word Hy-phen-a-tion by Com-put-er</em> (PhD thesis). Stanford University, Dept. Computer Science, Stanford.</p>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-liang_word_1983" class="csl-entry">
+Liang, F. M. (1983). <em><span class="nocase">Word Hy-phen-a-tion by
+Com-put-er</span></em> (PhD thesis). Stanford University, Dept. Computer
+Science, Stanford.
 </div>
 </div>
 </div>
-<div class="footnotes">
+<div class="footnotes footnotes-end-of-document">
 <hr />
 <ol>
-<li id="fn1"><p>The <code>hyphen()</code> method was originally implemented as part of the <code>koRpus</code> package, but was later split off into its own package, which is <code>sylly</code>. <code>koRpus</code> adds further <code>hyphen()</code> methods so they can be used on tokenized and POS tagged objects directly.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>Look for <code>*.pat.txt</code> files at <a href="http://tug.ctan.org/tex-archive/language/hyph-utf8/tex/generic/hyph-utf8/patterns/txt/" class="uri">http://tug.ctan.org/tex-archive/language/hyph-utf8/tex/generic/hyph-utf8/patterns/txt/</a><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p>You can also use the private method <code>sylly:::sylly\_langpack()</code> to generate an R package skeleton for this language, but it requires you to look at the <code>sylly</code> source code, as the commented code is the only documentation. The results of this method are optimized to be packaged with <code>roxyPackage</code> (<a href="https://github.com/unDocUMeantIt/roxyPackage" class="uri">https://github.com/unDocUMeantIt/roxyPackage</a>). In this combination, generating new language packages can almost be automatized.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
-<li id="fn4"><p>For example, this can be comfortably done with RKWard: <a href="http://rkward.kde.org" class="uri">http://rkward.kde.org</a><a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>The <code>hyphen()</code> method was originally
+implemented as part of the <code>koRpus</code> package, but was later
+split off into its own package, which is <code>sylly</code>.
+<code>koRpus</code> adds further <code>hyphen()</code> methods so they
+can be used on tokenized and POS tagged objects directly.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Look for <code>*.pat.txt</code> files at <a href="https://ctan.org/tex-archive/language/hyph-utf8/tex/patterns/txt/" class="uri">https://ctan.org/tex-archive/language/hyph-utf8/tex/patterns/txt/</a><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>You can also use the private method
+<code>sylly:::sylly\_langpack()</code> to generate an R package skeleton
+for this language, but it requires you to look at the <code>sylly</code>
+source code, as the commented code is the only documentation. The
+results of this method are optimized to be packaged with
+<code>roxyPackage</code> (<a href="https://github.com/unDocUMeantIt/roxyPackage" class="uri">https://github.com/unDocUMeantIt/roxyPackage</a>). In this
+combination, generating new language packages can almost be
+automatized.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>For example, this can be comfortably done with RKWard:
+<a href="https://rkward.kde.org" class="uri">https://rkward.kde.org</a><a href="#fnref4" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 

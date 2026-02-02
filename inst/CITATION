@@ -1,13 +1,13 @@
 bibentry("Manual",
     title="sylly: Hyphenation and Syllable Counting for Text Analysis",
     author="Meik Michalke",
-    year="2020",
-    note="(Version 0.1-6)",
+    year="2026",
+    note="(Version 0.1-7)",
     url="https://reaktanz.de/?c=hacking&s=sylly",
 
     textVersion =
-    paste("Michalke, M. (2020). ",
-        "sylly: Hyphenation and Syllable Counting for Text Analysis (Version 0.1-6). ",
+    paste("Michalke, M. (2026). ",
+        "sylly: Hyphenation and Syllable Counting for Text Analysis (Version 0.1-7). ",
         "Available from https://reaktanz.de/?c=hacking&s=sylly",
         sep=""),
 

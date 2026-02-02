@@ -40,7 +40,7 @@ read.hyph.pat("~/patterns/hyph-en-us.pat.txt", lang="en_us")
 }
 }
 \references{
-[1] \url{http://tug.ctan.org/tex-archive/language/hyph-utf8/tex/generic/hyph-utf8/patterns/txt/}
+[1] \url{https://ctan.org/tex-archive/language/hyph-utf8/tex/patterns/txt/}
 }
 \seealso{
 \code{\link[sylly:hyphen]{hyphen}},
