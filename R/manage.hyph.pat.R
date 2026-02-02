@@ -1,4 +1,4 @@
-# Copyright 2010-2018 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2010-2026 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package sylly.
 #
@@ -48,7 +48,7 @@
 #'    \code{\link[sylly:hyphen]{hyphen}}
 # @author m.eik michalke \email{meik.michalke@@hhu.de}
 #' @references
-#' [1] \url{http://tug.ctan.org/tex-archive/language/hyph-utf8/tex/generic/hyph-utf8/patterns/txt/}
+#' [1] \url{https://ctan.org/tex-archive/language/hyph-utf8/tex/patterns/txt/}
 #' @export
 #' @examples
 #' \dontrun{
