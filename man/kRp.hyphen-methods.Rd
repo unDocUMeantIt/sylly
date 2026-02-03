@@ -16,12 +16,11 @@
 \alias{hyphenText<-}
 \alias{hyphenText<-,kRp.hyphen-method}
 \alias{hyphenText<-,-methods}
-\alias{[,kRp.hyphen-method}
+\alias{[,kRp.hyphen,ANY,ANY,ANY-method}
 \alias{[,-methods}
 \alias{[,kRp.hyphen,ANY,ANY-method}
-\alias{[<-,kRp.hyphen-method}
-\alias{[<-,-methods}
 \alias{[<-,kRp.hyphen,ANY,ANY,ANY-method}
+\alias{[<-,-methods}
 \alias{[[,kRp.hyphen-method}
 \alias{[[,-methods}
 \alias{[[,kRp.hyphen,ANY-method}
@@ -54,9 +53,9 @@ hyphenText(obj) <- value
 
 \S4method{hyphenText}{kRp.hyphen}(obj) <- value
 
-\S4method{[}{kRp.hyphen}(x, i, j)
+\S4method{[}{kRp.hyphen,ANY,ANY,ANY}(x, i, j)
 
-\S4method{[}{kRp.hyphen}(x, i, j) <- value
+\S4method{[}{kRp.hyphen,ANY,ANY,ANY}(x, i, j) <- value
 
 \S4method{[[}{kRp.hyphen}(x, i)
 
